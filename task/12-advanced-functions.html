@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced functions</title>
+</head>
+<body>
+  <button onclick="" class="js-button">Click</button>
+  <script>
+    /*
+    const buttonElement = document.querySelector('.js-button');
+
+    const eventListener =  () => {
+      console.log('click')
+    }
+    buttonElement.addEventListener('click' , eventListener)
+
+    buttonElement.removeEventListener('click', eventListener)
+
+    buttonElement.addEventListener('click', () => {
+      console.log('click2')
+    })
+    */ 
+
+    /*
+    function greeting(){
+      console.log('hello');
+    }
+    greeting();
+
+    const num = 2; 
+    const function1 = function() {
+      console.log('hello shubham');
+    }
+    console.log(function1);
+    console.log(typeof function1);
+    function1();
+
+    const object1 = {
+      num: 2,
+      fun: function(){
+        console.log('hello3');
+      }
+    }
+    object1.fun();
+
+    function display(param){ 
+      console.log(param);
+    }
+
+    display(2); // this is called passing a value into the function.
+
+    function func2(param){
+      param(); //function is stored inside param so we can call it using this.
+    }
+    func2(function(){
+      console.log('hello4');
+    }); // function which is sent as a value is called callback.
+    */
+
+    /*
+    setTimeout(function(){
+      // inside here code runs in synchronous nature
+      console.log('future')
+      console.log('future2')
+    }, 4000); // code will run after 4 secs
+
+    console.log('next line'); //but here code runs in asynchonrous nature 
+    */
+
+    /*
+    [
+      'make dinner',
+      'wash dishes',
+      'wash clothes'
+    ].forEach((value,index) => {
+      console.log(`${value},${index}`)
+    })
+
+    const regularFunction = function(param,param2){
+      console.log('hello')
+      return 5;
+    }
+
+    const arrowFunction = (param,param2) => {
+      console.log('hello')
+      return 5;
+    }
+    arrowFunction();
+
+    const oneParam = param => {
+      console.log(param + 1);
+    }
+    oneParam(2);
+
+    const oneLine = () => 2 + 3;
+    console.log(oneLine());
+    */
+  </script>
+</body>
+</html>

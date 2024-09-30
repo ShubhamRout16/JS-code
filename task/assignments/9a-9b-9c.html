@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>9a,9b,9c</title>
+</head>
+<body>
+  <button>9a</button>
+  <button class="js-btn">9b</button>
+  <button class="js-heads" onclick="
+  chosenOne('heads');
+  ">heads</button>
+  <button class="js-tails" onclick="
+  chosenOne('tails');
+  ">tails</button>
+  <p class="js-p"></p>
+  <script>
+    console.log(document.querySelector('button'));
+    document.querySelector('.js-btn').innerHTML = '9b-done';
+    function chosenOne(chosen){
+      if (chosen === 'heads'){
+        document.querySelector('.js-p').innerHTML = 'You chose: heads';
+      }else if(chosen === 'tails'){
+        document.querySelector('.js-p').innerHTML = 'You chose: tails';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrays & loops</title>
+</head>
+<body>
+  <script>
+    /*
+    const doingList = [
+      'call rs',
+      'wash clothes',
+      'go for dinner'
+    ]
+
+    for (let i=0; i <= doingList.length -1; i++){
+      const value = doingList[i];
+      console.log(value);
+    }
+    */
+
+    /*
+     ACCUMULATOR PATTERN
+    1. create a variable and store the result
+    2. loop through the array and store the result
+    */
+    // problem 1 - define an array with numbers and console the total of the numbers inside of an array.
+
+    let nums = [9,8,2];
+    let result = 0;
+
+    for (let i=0; i < nums.length; i++){
+      const num = nums[i];
+      result += num ;
+    }
+    console.log(result);
+
+    const numsDoubled = [];
+    for (let i=0; i < nums.length; i++){
+      const num2 = nums[i];
+      numsDoubled.push(num2 * 2);
+    }
+    
+    console.log(numsDoubled);
+  </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title class="js-title-button">App</title>
+</head>
+<body>
+  <!-- <button class="js-finish-button" onclick="
+    changedBtn();
+    ">finish</button> -->
+
+  <!-- <button class="js-add-button" onclick="
+    changedBtn();
+  ">Add to cart</button>
+  <p class="js-p-button"></p> -->
+  
+  <!-- <button class="js-add-button" onclick="
+    addBtn();
+  ">Add messages</button>
+  <button class="js-remove-button" onclick="
+    removeBtn();
+  ">Remove</button> -->
+
+  <script>
+    /*
+    const add = function (){
+      console.log(2+3);
+    }
+    // add();
+    // add();
+    
+   function runTwice(fun){
+    fun();
+    fun();
+   }
+   runTwice(() => {
+    console.log('12b');
+   })
+
+   runTwice(add);
+   */
+  /*
+    function changedBtn(){
+      const buttonElement = document.querySelector('.js-finish-button');
+      buttonElement.innerHTML = 'Loading...'
+
+      setTimeout(function btn(){
+        buttonElement.innerHTML = 'finished';
+      },1000);
+    }
+  */
+
+  /*
+  function changedBtn(){
+    const buttonElement = document.querySelector('.js-p-button');
+    buttonElement.innerHTML = 'Added!';
+
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(function btn(){
+      buttonElement.innerHTML = '';
+    },2000)
+    
+  }
+  */
+
+  /* ! {revise this qs}
+  let removeInterval;
+  let isDisplayingNotification;
+  let messages = 2 ;
+  function addBtn(){
+    messages++;
+  }
+  function removeBtn(){
+    if(messages > 0){
+      messages--;
+    }
+    if(messages <= 0){
+      stopNotification();
+    }
+  }
+
+  displayNotification();
+
+  function displayNotification(){
+    if(isDisplayingNotification){
+      return;
+    }
+    isDisplayingNotification = true;
+
+    removeInterval = setInterval(function(){
+    if(document.title === 'App'){
+    document.title = `(${messages}) New messages`
+    }else{
+    document.title = 'App'
+    }
+    },1000)
+  }
+  function stopNotification(){
+    isDisplayingNotification = false;
+    clearInterval(removeInterval);
+    document.title = 'App';
+    }
+  */
+ /*
+ let result;
+  const multiply = (param1,param2) => {
+    result = param1 * param2 
+    return result;
+  };
+  multiply(2,3);
+  multiply(7,10);
+  console.log(result);
+  */
+
+  /*
+ const multiply = (param1,param2) => param1 * param2 ;
+ console.log(multiply(2,3));
+ console.log(multiply(7,10));
+ */
+
+/*
+function countPositive(nums){
+  let numsOf = [];
+  let count = 0;
+  nums.forEach(value => {
+    if(value > 0){
+      count++;
+    }
+  });
+  return count;
+}
+console.log(countPositive([1,-3,5]));
+console.log(countPositive([-2,3,-5,7,10]));
+*/
+/*
+function addNum(array,num){
+  return array.map((value) => value + num);
+}
+console.log(addNum([1,2,3],2));
+console.log(addNum([-2, -1, 0, 99], 2));
+*/
+function removeEgg(foods){
+  return foods.filter((food) => food != 'egg');
+}
+
+console.log(removeEgg(['egg', 'apple', 'egg', 'egg', 'ham']));
+</script>
+</body>
+</html>

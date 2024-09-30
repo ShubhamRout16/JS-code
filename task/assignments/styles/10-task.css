@@ -1,0 +1,84 @@
+body {
+  font-family: Arial;
+}
+p {
+  font-size: 20px;
+  font-weight: bold;
+}
+.yellow-btn {
+  background-color: rgb(255,216,20);
+  color: black;
+  font-family: Arial;
+  font-size: 15px;
+  padding: 5px 40px;
+  border: none;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.black-btn {
+  font-size: 15px;
+  border: none;
+  padding: 10px 15px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+.grey-btn {
+  font-size: 15px;
+  border: none;
+  padding: 10px 15px;
+  background-color: rgb(230,230,230);
+  color: black;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+.on-off-btn {
+  border: none;
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  font-family: Arial;
+  padding: 10px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.isToggled{
+  background-color: rgb(230,230,230);
+  border: none;
+  color: black;
+}
+.music-btn{
+  border: none;
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  font-family: Arial;
+  padding: 10px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.is2Toggled{
+  background-color: rgb(230,230,230);
+  border: none;
+  color: black;
+}
+.tech-btn {
+  border: none;
+  background-color: black;
+  color: white;
+  font-size: 15px;
+  font-family: Arial;
+  padding: 10px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+.is3Toggled{
+  background-color: rgb(230,230,230);
+  border: none;
+  color: black;
+}

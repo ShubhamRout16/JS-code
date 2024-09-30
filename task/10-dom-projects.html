@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Projects</title>
+  <style>
+    body{
+      font-family: Arial;
+    }
+
+    .btn-subscribe {
+      border: none;
+      background-color: black;
+      color: white;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-right: 15px;
+      padding-left: 15px;
+      font-weight: bold;
+      border-radius: 50px;
+      margin-bottom: 35px;
+    }
+    .btn-subscribed{
+      background-color: rgb(240, 240, 240);
+      color: black;
+    }
+    .btn-input{
+      font-size: 15px;
+      padding: 10px;
+    }
+    .btn-calculate {
+      border: none;
+      background-color: green;
+      color: white;
+      padding: 13px 15px;
+    }
+  </style>
+</head>
+<body>
+  <p>Youtube Subscribe BTN</p>
+  <button onclick="youtube()" class="js-btn-subscribe btn-subscribe">Subscribe</button>
+
+  <p>Amazon Shipping Calculator</p>
+  <input type="text" placeholder="Cost of order" class="js-cost-input btn-input" onkeydown="handleCostKeydown(event);">
+  <button onclick="
+    calculateTotal();
+  " class="btn-calculate">Calculate</button>
+  <p class="js-total-cost"></p>
+
+
+  <script>
+    function handleCostKeydown(event){
+      if (event.key === 'Enter'){
+        calculateTotal();
+      }
+    }
+
+
+    function calculateTotal () {
+      const inputElement = document.querySelector('.js-cost-input');
+      let cost = Number(inputElement.value) ;
+      
+      if(cost < 40){
+        cost = cost + 10;
+      }
+
+      document.querySelector('.js-total-cost').innerHTML = `$${cost}`;
+
+    }
+
+
+
+    function youtube(){
+      const btnElement = document.querySelector('.js-btn-subscribe');
+
+      if (btnElement.innerHTML === 'Subscribe') {
+      btnElement.innerHTML = 'Subscribed';
+      btnElement.classList.add('btn-subscribed');
+      }else{
+      btnElement.innerHTML = 'Subscribe';
+      btnElement.classList.remove('btn-subscribed');
+      }
+    }
+  </script>
+</body>
+</html>

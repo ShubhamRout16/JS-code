@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM</title>
+</head>
+<button>hello</button>
+<button class="js-btn">second button</button>
+<body>
+  <script>
+  console.log(document.querySelector('button').innerHTML); // this method allows us to get any elements from webpage and put it inside js.
+  document.querySelector('button').innerHTML = 'changed'; 
+
+  const btnElement = document.querySelector('.js-btn').innerHTML;
+  console.log(btnElement);
+  document.querySelector('.js-btn').innerHTML = 'js changed';
+
+  /*
+  document.body.innerHTML = 'hello';
+  document.title = 'good job'
+  */ 
+  // document object represents the webpage and is hence called the model of webpage which is DOM => document object model
+  
+  // DOM PROPERTIES 
+  /*
+  console.log(document.title); //which gives the title of the webpage
+  document.title = 'changed'; //we can change the title of the webpage using this property
+
+  console.log(document.body); 
+  console.log(typeof document.body);
+
+  console.log(document.body.innerHTML); //which gives all the html elements inside the body tag
+  document.body.innerHTML = 'changed'; // all the inner html is changed to changed string
+  document.body.innerHTML = '<button>hello</button>' // we can also write html code inside it
+  */
+
+  /* 
+  1. through this we understood that we can get the HTML elements in js
+  2. through DOM we can combine js and HTML together
+  3. it gives js control of the webpage
+  4. when html elements are inside js they are converted into js objects
+  */
+
+  // CLICKS , KEYDOWNS => EVENTS & ONECLICK , ONEKEYDOWNS => EVENT LISTENERS , event listeners checks wehn events happens and they run the javascript code then.
+ 
+  </script>
+</body>
+</html>

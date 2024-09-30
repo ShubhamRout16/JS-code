@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles/10-task.css">
+</head>
+<body>
+  <p>10a - Amazon Button</p>
+  <button class="yellow-btn">Add to Cart</button>
+  <br>
+  <p>10b - Uber Buttons</p>
+  <button class="black-btn">Request now</button>
+  <button class="grey-btn">Schedule for later</button>
+  <br>
+  <p>10c</p>
+  <button class="js-btn">Test</button>
+  <br>
+  <p>10d</p>
+  <button class="on-off-btn gaming-btn" onclick="
+  const button = document.querySelector('.on-off-btn');
+  if (!button.classList.contains('isToggled')){
+   button.classList.add('isToggled');
+  }else{
+    button.classList.remove('isToggled');
+  }
+  ">Gaming</button>
+
+  <button class="music-btn" onclick="
+  const button2 = document.querySelector('.music-btn');
+  if (!button2.classList.contains('is2Toggled')){
+    button2.classList.add('is2Toggled');
+  }else{
+    button2.classList.remove('is2Toggled');
+  }
+  ">Music</button>
+
+  <button class="tech-btn" onclick="
+  const button3 = document.querySelector('.tech-btn');
+  if (!button3.classList.contains('is3Toggled')){
+    button3.classList.add('is3Toggled');
+  }else{
+    button3.classList.remove('is3Toggled');
+  }
+  ">Tech</button>
+  <script src="scripts/10-task.js"></script>
+</body>
+</html>
