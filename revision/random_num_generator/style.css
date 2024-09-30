@@ -1,0 +1,23 @@
+body {
+    background-color: rgb(141, 141, 240);
+}
+#mydiv {
+    text-align: center;
+}
+
+#mylabel {
+    font-size: 4em;
+    color: brown;
+}
+#mybutton {
+    font-size: 3em;
+    font-family: Verdana;
+    cursor: pointer;
+    color: red;
+    background-color: yellow;
+    transition: background-color 0.25s;
+}
+
+#mybutton:hover{
+    background-color: rgb(59, 59, 2);
+}

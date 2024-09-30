@@ -1,0 +1,24 @@
+body{
+    font-family: Verdana;
+    text-align: center;
+}
+
+#mybutton {
+    font-size: 3em;
+    padding: 5px 25px;
+    border-radius: 5px;
+    color: rgb(4, 4, 0);
+    background-color: yellow;
+    cursor: pointer;
+    transition: background-color 0.25s;
+}
+
+#mybutton:hover {
+    background-color: rgb(177, 116, 2);
+}
+
+#mylabel {
+    font-size: 3em;
+    color: red;
+}
+
