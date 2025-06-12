@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM with chai aur code</title>
+</head>
+<body style="background-color: black;">
+  <ul class="language">
+    <li>javascript</li>
+  </ul>
+</body>
+<script>
+  // element create kro aur append krdo upar wale list pe
+  function addLang(langName){
+    const li = document.createElement('li');
+    li.innerHTML = `${langName}`
+    document.querySelector('.language').appendChild(li)
+  }
+  addLang("python")
+  addLang("javascript")
+  // optimize krke kaise add kr skte ha element  ko
+  function addOptiLang(langName){
+    const li = document.createElement('li');
+    li.appendChild(document.createTextNode(langName));
+    document.querySelector('.language').appendChild(li);
+  }
+  addOptiLang("golang");
+  addOptiLang("ruby");
+
+  // edit
+  // koi v given element ko kaise edit kr skte ha
+  const langChange = document.querySelector("li:nth-child(2)")
+  // langChange.innerHTML = "Mojo"
+  // another method -> replace
+  
+
+  // optimization
+  const newLi = document.createElement('li');
+  newLi.textContent = "Mojo"
+  // document.querySelector('.language').appendChild(newLi);
+  langChange.replaceWith(newLi)
+
+
+  // replace first language
+  const addLang = document.querySelector('.language')
+  const newli = document.createElement('li');
+  newli.innerHTML = "Typescript"
+  addLang.replaceWith(newli)
+
+  // Remove
+  const LastRm = document.querySelector('li: last-child')
+  LastRm.remove()
+</script>
+</html>
