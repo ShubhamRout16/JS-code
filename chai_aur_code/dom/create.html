@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shubham ROUT</title>
+</head>
+<body>
+  
+</body>
+<script>
+  // element kaise create krte ha DOM me?
+  const div = document.createElement('div');
+  console.log(div); //element create krdiya ha
+  // us element ka attributes kasie set krein
+  div.className = "main"
+  div.id = "mainID"
+  // custom attributes us element me kaise ad d kre?
+  div.setAttribute("title","profile");
+  div.style.backgroundColor = "green";
+  // material kaise dale us element me?
+  div.innerText = "hello i m shubham rout";
+  // dusra method ha koi?
+  const addText = document.createTextNode("guruji -> hitesh choudhary");
+  div.appendChild(addText);
+
+  // ye element hmne jo dom se banaya ha isko main body ke sath kaise attach kren?
+  div.appendChild(div);
+</script>
+</html>
