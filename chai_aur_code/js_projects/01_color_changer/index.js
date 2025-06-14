@@ -8,9 +8,6 @@ button_use.forEach(function (button) {
   button.addEventListener('click', function(e) {
     console.log(e);
     console.log(e.target);
-    if(e.target.id === 'inverse'){
-      body_use.style.backgroundColor = black;
-    }
     if(e.target.id === 'grey'){
       body_use.style.backgroundColor = e.target.id;
     }

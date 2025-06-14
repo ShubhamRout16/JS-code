@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>async with chai aur code</title>
+</head>
+<body>
+  <h1>Hello I am shubham rout</h1>
+  <button id="start">start</button>
+  <button id="stop">stop</button>
+  <p id="results"></p>
+</body>
+<script>
+  // setTimeout syntax
+  setTimeout(function(){
+    // console.log("now i understood it");
+  },2000)
+
+  const callmyName = function(){
+    console.log("hi my name is shubham rout");
+  }
+  // lets try changing the name content of the webpage
+  const changeText = function(){
+    console.log("changed");
+    document.querySelector('h1').innerHTML = "i m tech savvy"
+  }
+  // setTimeout(callmyName,2000); //my name is printed in console after 2 sec
+  // setTimeout ko reference chhaiye hota ha function ka execution nhi
+  // const bandKaro = setTimeout(changeText,5000);
+
+  // clearTimeout -> clear timeout kaam krta ha ki koi v settimeout ko rok deta ha
+  // clearTimeout ka reference v chhaiye hota ha
+  // clearTimeout(bandKaro); //ab setTimeout execute hoga hi nhi
+  // document.querySelector('#stop').addEventListener('click',function(){
+  //   clearTimeout(bandKaro);
+  //   console.log("band krdiya setTimeout ko");
+  // })
+  
+
+
+  // SetInterval //
+  setInterval(function(){
+    // console.log("yo its working",Date.now());
+  },2000)
+
+  // additional task
+  const seeIt = function(){
+    console.log("i m coming after every 2 sec");
+    console.log("+2");
+  }
+  let startIt = false; // interval start ni hua ha
+
+  // on clicking start button start hojayega interval
+  document.querySelector('#start').addEventListener('click',function(){
+    if(startIt == false){
+      startIt = setInterval(seeIt,2000);
+      document.getElementById('results').innerHTML = "start krdiya raje";
+    }
+  })
+  // on clicking start button stop hojayega interval
+  document.querySelector('#stop').addEventListener('click',function(){
+    if(startIt != true){
+      clearInterval(startIt);
+      startIt = false;
+      document.getElementById('results').innerHTML = "le band krdiya raje";
+    }
+  })
+</script>
+</html>
