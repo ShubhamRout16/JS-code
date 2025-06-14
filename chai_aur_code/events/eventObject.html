@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>event objects</title>
+</head>
+<body style="background-color: black; color: white;">
+  <h1>hi my name is shubham rout</h1>
+</body>
+<script>
+  document.querySelector('body').addEventListener('click',function(e){
+    console.log(e.type); //click keydown and mouseover
+    console.log(e.timeStamp);//time when event occurred in milliseconds
+    e.preventDefault(); // Stops default browser behavior (like form submission)
+    e.target // ye access krta ha us element ko jiske kaaran event hua
+    console.log(e.target);
+    console.log(e.currentTarget); // jo element pe eventListener laga hua h   
+    e.srcElement // internet explorer used to use srcElement instead of target
+    e.toElement // internet explorer used to use toElement instead of related target
+    e.clientX, e.clientY // Position relative to browser viewport
+    e.screenX, e.screenY // Position relative to entire screen 
+    e.altKey   // Boolean - Alt key pressed?
+    e.ctrlKey  // Boolean - Ctrl key pressed?  
+    e.shiftKey // Boolean - Shift key pressed?
+    e.keyCode  // Numeric code of pressed key (deprecated, use e.key instead)
+  })
+</script>
+</html>

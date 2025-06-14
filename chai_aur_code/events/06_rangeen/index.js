@@ -12,7 +12,7 @@ const rapidColor = function(){
 // start button krne pe kya hoga
 document.querySelector('#start').addEventListener('click',function(){
   if(currentStatus ==  false){
-    intervalChanges = setInterval(rapidColor,1000); // interval store krliya
+    intervalChanges = setInterval(rapidColor,500); // interval store krliya
     currentStatus = true; //started color changing
     console.log("started");
   }
