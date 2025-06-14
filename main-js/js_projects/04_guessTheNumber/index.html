@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guess the Number Game</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1 class="game-title">🎯 Guess the Number</h1>
+            <p class="game-subtitle">I'm thinking of a number between 1 and 100</p>
+        </div>
+
+        <div class="game-content">
+            <div class="attempts-display">
+                <div class="attempts-circle">
+                    <span class="attempts-number" id="attemptsLeft">10</span>
+                    <span class="attempts-label">attempts left</span>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <div class="input-container">
+                    <input 
+                        type="number" 
+                        id="guessField" 
+                        class="guess-input" 
+                        placeholder="Enter your guess"
+                        min="1" 
+                        max="100"
+                        autocomplete="off"
+                    >
+                    <button id="subt" class="submit-btn">
+                        <span>Submit Guess</span>
+                        <svg class="submit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="feedback-section">
+                <div class="message-container">
+                    <p class="feedback-message" id="lowOrHi">Make your first guess!</p>
+                </div>
+            </div>
+
+            <div class="game-stats">
+                <div class="stat-card">
+                    <h3>Previous Guesses</h3>
+                    <div class="guesses-container">
+                        <span class="guesses-list" id="guesses">None yet</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-actions">
+            <button class="reset-btn" id="resetGame">
+                <svg class="reset-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                    <path d="M21 3v5h-5"/>
+                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                    <path d="M3 21v-5h5"/>
+                </svg>
+                New Game
+            </button>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="modal-overlay" id="gameOverModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">🎉 Congratulations!</h2>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">You guessed the number!</p>
+                <div class="modal-stats">
+                    <div class="modal-stat">
+                        <span class="stat-value" id="finalAttempts">5</span>
+                        <span class="stat-label">attempts used</span>
+                    </div>
+                    <div class="modal-stat">
+                        <span class="stat-value" id="correctNumber">42</span>
+                        <span class="stat-label">correct number</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn primary" id="playAgain">Play Again</button>
+                <button class="modal-btn secondary" id="closeModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
