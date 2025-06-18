@@ -1,48 +1,97 @@
-// feature 1 -> dragging task from one column to another
-// feature 2 -> update the amount of task after and before drag and drop event
+// feature 1 -> taking input from the user and adding it to the task
 
+let draggedCard = null;
+let rightClickedCard = null;
 
-
-function drop(e){
-  e.preventDefault();
-  // task id got retrived and stored in taskID
-  let taskId = e.dataTransfer.getData('text');
-  // prevent case -> appending task inside another task
-  if(e.target.id.includes('task')) return;
-  console.log(taskId);
-  // highilighting the dragged element
-  e.target.appendChild(document.getElementById(taskId));
-  updateQuantities();
+function addTask(columnId){
+  const input = document.getElementById(`${columnId}-input`)
+  const taskText = input.value
+  // feature 4 -> time of creation of element
+  const taskDate = new Date().toLocaleString();
+  const taskElement = createElement(taskText,taskDate);
+  document.getElementById(`${columnId}-tasks`).appendChild(taskElement)
+  input.value = '';
+  updateTaskCount(columnId);
 }
 
-function allowDrop(e){
-  e.preventDefault();
+function createElement(taskText,taskDate){
+  const taskElement = document.createElement('div')
+  taskElement.innerHTML = `<span>${taskText}</span><br><small id="time">${taskDate}</small>`;
+  taskElement.draggable = true
+  taskElement.classList.add('card');
+  taskElement.addEventListener('dragstart',dragStart)
+  taskElement.addEventListener('dragend',dragEnd)
+  taskElement.addEventListener('contextmenu',function(e){ // right click event listener
+    e.preventDefault();
+    rightClickedCard = this; 
+    showContextMenu(e.pageX,e.pageY) // cursor ka coordinates leta ha yeh
+  })
+  return taskElement;
 }
 
-function drag(e){
-  // to get the id of the task element -> to determine which task is dragged and dropped
-  e.dataTransfer.setData('text',e.target.id);
+
+// feature 2 -> drag and drop functionality
+
+function dragStart(){
+  this.classList.add('dragging');
+  draggedCard = this;
 }
 
-// update quantity feature
-function updateQuantities(){
-  const todoColumn = document.querySelector('#todo')
-  const in_progressColumn = document.querySelector('#in-progress')
-  const doneColumn = document.querySelector('#done')
-
-  const todoHeader = document.querySelector('#todo-header')
-  const in_progressHeader = document.querySelector('#in-progress-header')
-  const doneHeader = document.querySelector('#done-header')
-
-  // calling each header and column
-  updateHeader(todoHeader,todoColumn);
-  updateHeader(in_progressHeader,in_progressColumn);
-  updateHeader(doneHeader,doneColumn);
+function dragEnd(){
+  this.classList.remove('dragging')
+  draggedCard = null;
+  ["todo","in-progress","done"].forEach((columnId) => {
+    updateTaskCount(columnId);
+  })
 }
 
-// made a function for every header and column
-function updateHeader(header,column){
-  header.innerText = `${header.innerText.split(' ')[0]} (${column.children.length})`;
+const columns = document.querySelectorAll('.column .tasks')
+columns.forEach((column) => {
+  column.addEventListener('dragover',dragOver);
+});
+
+function dragOver(e){
+  e.preventDefault(); //html normally doesnt allow drag and drop to prevent this -> to allow drop
+  this.appendChild(draggedCard);
 }
 
-updateQuantities();
+// feature 3 -> edit/delete on right click mouse -> popup edit and delete option
+
+const contextMenu = document.getElementsByClassName('context-menu')[0] //return html collections
+function showContextMenu(x,y){
+  contextMenu.style.left = `${x}px`;
+  contextMenu.style.top = `${y}px`;
+  contextMenu.style.display = 'block';
+}
+
+// bug -> ek baar right click krne ke baad dubara kahi v click nhi ho parha ha
+document.addEventListener('click',function(){
+  contextMenu.style.display = 'none';
+})
+
+function editTask(){
+  // bug -> while editing text timestamp also comes with the text
+  const currentTaskText = rightClickedCard.querySelector('span').textContent;
+  const newTaskText = prompt('Edit :- ',currentTaskText)
+
+  if(newTaskText !== null & newTaskText !== ''){
+    rightClickedCard.querySelector('span').textContent = newTaskText.trim();
+  }
+}
+
+function deleteTask(){
+  const columnId = rightClickedCard.parentElement.id.replace('-tasks',''); 
+  rightClickedCard.remove();
+  updateTaskCount(columnId);
+}
+
+
+// feature 5 -> showing the count of number of tasks
+// updateTaskCount is called three times -> adding task , deleting task , dragginf element
+function updateTaskCount(columnId){
+  let count = document.querySelectorAll(`#${columnId}-tasks .card`).length;
+  console.log(count);
+  document.getElementById(`${columnId}-count`).textContent = count; 
+}
+
+// feature 6 -> saving in localStorage

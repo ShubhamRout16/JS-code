@@ -7,24 +7,34 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h4 id="todo-header">Todo</h4>
-      <h4 id="in-progress-header">In-Progress</h4>
-      <h4 id="done-header">Done</h4>
+  <div class="board">
+    <div class="column" id="todo">
+      <h2 id="todo-header">To-Do (<span id="todo-count">0</span>)</h2>
+      <div class="tasks" id="todo-tasks"></div>
+      <input type="text" class="task-input" placeholder="Add a task" id="todo-input">
+      <button class="add-task" onclick="addTask('todo')">Add Task</button>
     </div>
 
-    <div class="drag-drop-container">
-      <div class="col3" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <p class="task" id="task1" draggable="true" ondragstart="drag(event)">task 1</p>
-        <p class="task" id="task2" draggable="true" ondragstart="drag(event)">task 2</p>
-        <p class="task" id="task3" draggable="true" ondragstart="drag(event)">task 3</p>
-        <p class="task" id="task4" draggable="true" ondragstart="drag(event)">task 4</p>
-      </div>
-      <div class="col3" id="in-progress" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      <div class="col3" id="done" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="column" id="in-progress">
+      <h2>In-Progress (<span id="in-progress-count">0</span>)</h2>
+      <div class="tasks" id="in-progress-tasks"></div>
+      <input type="text" class="task-input" placeholder="Add a task" id="in-progress-input">
+      <button class="add-task" onclick="addTask('in-progress')">Add Task</button>
+    </div>
+
+    <div class="column" id="done">
+      <h2>Done (<span id="done-count">0</span>)</h2>
+      <div class="tasks" id="done-tasks"></div>
+      <input type="text" class="task-input" placeholder="Add a task" id="done-input">
+      <button class="add-task" onclick="addTask('done')">Add Task</button>
     </div>
   </div>
+  <div class="context-menu">
+    <ul>
+      <li onclick="editTask()">Edit</li>
+      <li onclick="deleteTask()">Delete</li>
+    </ul>
+  </div>
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>

@@ -1,39 +1,114 @@
-.container{
-  width: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* css reset */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.header{
+body{
+  font-family: "Poppins", sans-serif;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #4B0082;
 }
 
-.header h4{
-  box-shadow: 0 0 10px rgba(128, 128, 128, 0.644);
-  width: 100%;
+.board{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.column{
+  background-color: whitesmoke;
+  width: 300px;
+  min-height: 400px;
+  padding: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  border-radius: 20px;
+}
+
+.column h2{
   text-align: center;
-  padding: 8px;
-  border-radius: 8px 8px 0 0;
-  margin: 4px;
-  margin-bottom: 0;
+  color: black;
+  margin-bottom: 20px;
 }
-.drag-drop-container{
-  display: flex;
-  height: 100%;
-}
-.col3{
-  background-color: grey;
+
+.tasks{
   height: 400px;
-  width: 100%;
-  margin: 4px;
-  margin-top: 0;
-  background: rgba(128, 128, 128, 0.196);
-  border-radius: 0 0 8px 8px;
 }
-.task{
-  padding: 8px;
-  box-shadow: 0 0 10px rgba(128, 128, 128, 0.644);
+
+.task-input{
+  width: 100%;
+  padding: 10px 5px;
   border-radius: 4px;
-  margin: 8px;
-  background: white;
+  border: 1px solid #cccccc;
+  margin-top: 10px;
+}
+
+.add-task{
+  width: 100%;
+  padding: 10px 5px;
+  border-radius: 4px;
+  border: none;
+  background-color: #4B0082;
+  color: #ffffff;
+  font-weight: bold;
   cursor: pointer;
+  margin-top: 10px;
+}
+
+.add-task:hover{
+  background-color: #7c45a3;
+}
+
+.card{
+  position: relative;
+  background-color: #4B0082;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: grab;
+  transition: all 0.3s ease;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+}
+
+.card:hover{
+  background-color: #7c45a3;
+  transform: scale(1.07);
+}
+
+.context-menu{
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  padding: 10px 0;
+  border-radius: 4px;
+}
+
+.context-menu ul li{
+  list-style: none;
+  padding: 8px 20px;
+  cursor: pointer;
+  color: #333333;
+}
+
+.context-menu ul li:hover{
+  background-color: #f4f4f4;
+}
+
+#time{
+  /* span and small are inline element so text-align doesnt directly work on them -> so we made it to block then did it*/
+  display: block;
+  text-align: end;
+  font-style: italic;
+  font-size: 12px;
 }
