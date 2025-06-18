@@ -3,6 +3,8 @@
 let draggedCard = null;
 let rightClickedCard = null;
 
+document.addEventListener('DOMContentLoaded',loadTaskFromLocaleStorage);
+
 function addTask(columnId){
   const input = document.getElementById(`${columnId}-input`)
   const taskText = input.value
@@ -10,6 +12,7 @@ function addTask(columnId){
   const taskDate = new Date().toLocaleString();
   const taskElement = createElement(taskText,taskDate);
   document.getElementById(`${columnId}-tasks`).appendChild(taskElement)
+  saveTaskToLocaleStorage();
   input.value = '';
   updateTaskCount(columnId);
 }
@@ -42,6 +45,7 @@ function dragEnd(){
   draggedCard = null;
   ["todo","in-progress","done"].forEach((columnId) => {
     updateTaskCount(columnId);
+    updateTaskToLocaleStorage()
   })
 }
 
@@ -76,11 +80,13 @@ function editTask(){
 
   if(newTaskText !== null & newTaskText !== ''){
     rightClickedCard.querySelector('span').textContent = newTaskText.trim();
+    updateTaskToLocaleStorage()
   }
 }
 
 function deleteTask(){
   const columnId = rightClickedCard.parentElement.id.replace('-tasks',''); 
+  updateTaskToLocaleStorage()
   rightClickedCard.remove();
   updateTaskCount(columnId);
 }
@@ -95,3 +101,29 @@ function updateTaskCount(columnId){
 }
 
 // feature 6 -> saving in localStorage
+function saveTaskToLocaleStorage(columnId,taskText,taskDate){
+  const tasks = JSON.parse(localStorage.getItem(columnId)) || []
+  tasks.push({text: taskText,date: taskDate});
+  localStorage.setItem(columnId,JSON.stringify(tasks))
+}
+function loadTaskFromLocaleStorage(){
+  ["todo","in-progress","done"].forEach((columnId) => {
+    const tasks = JSON.parse(localStorage.getItem(columnId)) || []
+    tasks.forEach((text,date) => {
+      const taskElement = createElement(text,date);
+      document.getElementById(`${columnId}-tasks`).appendChild(taskElement);
+      updateTaskCount(columnId)
+    })
+  })
+}
+function updateTaskToLocaleStorage(){
+  ['todo','in-progress','done'].forEach((columnId) => {
+    const tasks = [];
+    document.querySelectorAll(`#${columnId}-tasks .card`).forEach((card) => {
+      const taskText = card.querySelector('span').textContent
+      const taskDate = card.querySelector('small').textContent
+      tasks.push({text: taskText , date: taskDate})
+    })
+    localStorage.setItem(columnId,JSON.stringify(tasks))
+  })
+}
