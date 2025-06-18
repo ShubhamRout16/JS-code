@@ -3,7 +3,27 @@
 let draggedCard = null;
 let rightClickedCard = null;
 
-document.addEventListener('DOMContentLoaded',loadTaskFromLocaleStorage);
+document.addEventListener('DOMContentLoaded', () => {
+  loadTaskFromLocaleStorage();
+  enterKeyListener();
+});
+
+// feature 7 -> enter keydown -> for adding task
+function enterKeyListener(){
+  const columns = ['todo','in-progress','done']
+
+  columns.forEach(columnId => {
+    const input = document.getElementById(`${columnId}-input`);
+
+    input.addEventListener('keydown', (e) => {
+      if(e.key == 'Enter'){
+        addTask(columnId);
+      }
+    })
+  })
+}
+
+
 
 function addTask(columnId){
   const input = document.getElementById(`${columnId}-input`)
@@ -16,7 +36,7 @@ function addTask(columnId){
   input.value = '';
   updateTaskCount(columnId);
 }
-
+``
 function createElement(taskText,taskDate){
   const taskElement = document.createElement('div')
   taskElement.innerHTML = `<span>${taskText}</span><br><small id="time">${taskDate}</small>`;
@@ -109,8 +129,8 @@ function saveTaskToLocaleStorage(columnId,taskText,taskDate){
 function loadTaskFromLocaleStorage(){
   ["todo","in-progress","done"].forEach((columnId) => {
     const tasks = JSON.parse(localStorage.getItem(columnId)) || []
-    tasks.forEach((text,date) => {
-      const taskElement = createElement(text,date);
+    tasks.forEach((task) => {
+      const taskElement = createElement(task.text,task.date);
       document.getElementById(`${columnId}-tasks`).appendChild(taskElement);
       updateTaskCount(columnId)
     })
@@ -127,3 +147,6 @@ function updateTaskToLocaleStorage(){
     localStorage.setItem(columnId,JSON.stringify(tasks))
   })
 }
+
+// feature 7 -> drag sorting
+
