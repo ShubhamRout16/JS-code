@@ -1,0 +1,39 @@
+.container{
+  width: 100%;
+}
+
+.header{
+  display: flex;
+  justify-content: space-around;
+}
+
+.header h4{
+  box-shadow: 0 0 10px rgba(128, 128, 128, 0.644);
+  width: 100%;
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px 8px 0 0;
+  margin: 4px;
+  margin-bottom: 0;
+}
+.drag-drop-container{
+  display: flex;
+  height: 100%;
+}
+.col3{
+  background-color: grey;
+  height: 400px;
+  width: 100%;
+  margin: 4px;
+  margin-top: 0;
+  background: rgba(128, 128, 128, 0.196);
+  border-radius: 0 0 8px 8px;
+}
+.task{
+  padding: 8px;
+  box-shadow: 0 0 10px rgba(128, 128, 128, 0.644);
+  border-radius: 4px;
+  margin: 8px;
+  background: white;
+  cursor: pointer;
+}
