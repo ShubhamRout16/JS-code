@@ -76,7 +76,38 @@ columns.forEach((column) => {
 
 function dragOver(e){
   e.preventDefault(); //html normally doesnt allow drag and drop to prevent this -> to allow drop
-  this.appendChild(draggedCard);
+
+  // feature 7 -> drag sorting
+
+  const afterElement = getDraggedAfterElement(this,event.pageY); //no sorting is being done in X coordinate
+  if(afterElement === null){
+    this.appendChild(draggedCard);
+  }
+  else{
+    this.insertBefore(draggedCard,afterElement); // insertBefore is a method inserts a new node before the reference node
+    // insertBefore(newNode , referenceNode) <- syntax
+  }
+}
+
+function getDraggedAfterElement(container,y){
+  const draggableElements = [...container.querySelectorAll('.card:not(.dragging)')]
+   //converting nodelist into array -> by spreading
+  const result = draggableElements.reduce((afterElement,currentElement) => {
+    const box = currentElement.getBoundingClientRect();
+
+    const offset = y - box.top - box.height / 2 ;
+
+    console.log(offset);
+
+    if(offset < 0 && offset > afterElement.offset){
+      return  {offset: offset , element: currentElement};
+    }else{
+      return afterElement;
+    }
+  } , {
+    offset: Number.NEGATIVE_INFINITY,
+  })
+  return result.element;
 }
 
 // feature 3 -> edit/delete on right click mouse -> popup edit and delete option
@@ -148,5 +179,4 @@ function updateTaskToLocaleStorage(){
   })
 }
 
-// feature 7 -> drag sorting
 
