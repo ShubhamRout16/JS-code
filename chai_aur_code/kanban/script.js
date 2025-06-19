@@ -1,5 +1,3 @@
-// feature 1 -> taking input from the user and adding it to the task
-
 let draggedCard = null;
 let rightClickedCard = null;
 
@@ -24,7 +22,7 @@ function enterKeyListener(){
 }
 
 
-
+// feature 1 -> taking input from the user and adding it to the task
 function addTask(columnId){
   const input = document.getElementById(`${columnId}-input`)
   const taskText = input.value
@@ -36,7 +34,7 @@ function addTask(columnId){
   input.value = '';
   updateTaskCount(columnId);
 }
-``
+
 function createElement(taskText,taskDate){
   const taskElement = document.createElement('div')
   taskElement.innerHTML = `<span>${taskText}</span><br><small id="time">${taskDate}</small>`;
