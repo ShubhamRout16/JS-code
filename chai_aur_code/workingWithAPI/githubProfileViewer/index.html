@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Github</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background: #f4f4f4;
+    }
+    #profile {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: white;
+      box-shadow: 0 0 10px #ccc;
+      display: inline-block;
+    }
+    img {
+      width: 150px;
+      border-radius: 50%;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>GitHub Profile Viewer</h1>
+  <input type="text" id="usernameInput" placeholder="Enter GitHub username">
+  <button onclick="getUser()">Search</button>
+  <br>
+  <div id="profile"></div>
+</body>
+<script src="script.js"></script>
+</html>
