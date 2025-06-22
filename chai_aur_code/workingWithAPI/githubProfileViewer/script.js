@@ -35,3 +35,30 @@ async function getUser(){
     profileDiv.innerHTML = `<p style="color: red">${error.message}</p>`
   }
 }
+
+function saveLastSearchedUser(){
+  let history = JSON.parse(localStorage.getItem('history')) || []
+  if(!history.includes(username)){
+    history.push(username)
+    localStorage.setItem('history',JSON.stringify(history))
+  }
+  showLastUser()
+}
+
+function showLastUser(){
+  let history = JSON.parse(localStorage.getItem('history')) || []
+  let container = document.getElementById('history')
+  container.innerHTML = ''
+
+  history.forEach(username => {
+    let btn = document.createElement('button')
+    btn.textContent = username
+    btn.onclick = () => {
+      document.getElementById('usernameInput').value = username
+      getUser()
+    }
+    container.appendChild(btn)
+  })
+}
+
+window.onload = showLastUser
