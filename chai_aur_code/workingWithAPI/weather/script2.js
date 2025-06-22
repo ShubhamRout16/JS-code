@@ -30,3 +30,31 @@ function displayWeather(data){
         <p>💨 Wind Speed: ${data.wind.speed} m/s</p>
       `;
 }
+
+function saveCityToHistory(city){
+  // object dega ye ek
+  let history = JSON.parse(localStorage.getItem('history')) || []
+  if(!history.includes(city)){
+    history.push(city)
+    localStorage.setItem('history', JSON.stringify(history))
+  }
+  showSearchHistory()
+}
+
+function showSearchHistory(){
+  let history = JSON.parse(localStorage.getItem('history')) || []
+  let container = document.getElementById('history')
+  container.innerHTML = ''
+
+  history.forEach(city => {
+    let btn = document.createElement('button')
+    btn.textContent = city;
+    btn.onclick = () => {
+      document.getElementById('cityInput').value = city
+      getWeather();
+    }
+    container.appendChild(btn);
+  })
+}
+
+window.onload = showSearchHistory;
