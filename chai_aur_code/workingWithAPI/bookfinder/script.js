@@ -195,6 +195,8 @@ window.onload = function() {
   if(localStorage.getItem('darkMode') === 'true'){
     document.body.classList.add('dark-mode')
   }
+
+  updateToggleText();
 }
 
 // adding dark mode toggle feature
@@ -208,4 +210,14 @@ document.getElementById('toggleDarkMode').addEventListener('click' , () => {
   // .contains check if there is className dark-mode and returns true and false based on that
   const isDark = document.body.classList.contains('dark-mode')
   localStorage.setItem('darkMode',isDark) // saving the result true and false to the localStorage
+
+  // bug : text changes only when the page refreshes to make changes when the button is clicked we need call it here also
+  updateToggleText();
 })
+
+// changing button text and icon when changing between light and dark mode
+function updateToggleText(){
+  const btn = document.getElementById('toggleDarkMode')
+  const isDark = document.body.classList.contains('dark-mode')
+  btn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+}
