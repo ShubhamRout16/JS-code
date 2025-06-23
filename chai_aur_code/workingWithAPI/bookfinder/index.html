@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>book-finder</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Book Finder</h1>
@@ -15,6 +16,9 @@
   <h2>Saved-Books</h2>
   <button id="clearAllBooks" onclick="clearAll()" style="margin-bottom: 10px;">Clear-All</button>
   <div id="savedBooks"></div>
+  <div id="toast" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background-color: #333; color: white; padding: 12px 20px; border-radius: 8px; display: none; z-index: 1000;">
+    This is a toast!
+  </div>
 </body>
 <script src="script.js"></script>
 </html>

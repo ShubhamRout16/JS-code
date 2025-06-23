@@ -62,17 +62,19 @@ async function getBook(){
       // lets show it on the dom
       // bug -> only one image shows up on dom because .innerHTML replaces current element so we have to append using + operator
       // console.log(data.items[i].volumeInfo.imageLinks.smallThumbnail);
-      bookShower.innerHTML += `
+      
+      let bookCard = `
+      <div class="book-card">
       <button id="saveBook" onclick="saveBook(${i})">Save</button> 
       <br>
       <img src = "${data.items[i].volumeInfo.imageLinks.smallThumbnail}" alt = "books image" />
       <h3>Book title : ${data.items[i].volumeInfo.title}</h3>
-      <p><strong>Page Count : ${data.items[i].volumeInfo.pageCount}</strong></p>
-      <p><strong>Published Date : ${data.items[i].volumeInfo.publishedDate}</strong></p>
-      <p><strong>Publisher : ${data.items[i].volumeInfo.publisher}</strong></p>
+      <p><strong>Page Count : ${data.items[i].volumeInfo.pageCount || 'N/A'}</strong></p>
+      <p><strong>Published Date : ${data.items[i].volumeInfo.publishedDate || 'N/A'}</strong></p>
+      <p><strong>Publisher : ${data.items[i].volumeInfo.publisher || 'N/A'}</strong></p>
+      
       `
       
-
       // bug -> some books doesnt have authors so error is thrown
       if(data.items[i].volumeInfo.authors){
         for(let j=0; j<data.items[i].volumeInfo.authors.length; j++){
@@ -85,11 +87,13 @@ async function getBook(){
           // }else{
           //   console.log(data.items[i].volumeInfo.authors[j])
           // }
-          bookShower.innerHTML += `
+          bookCard += `
             <p><strong>Authors : ${(data.items[i].volumeInfo.authors[j])}</strong></p>
             `
         }
       }
+      bookCard += `</div>`;
+      bookShower.innerHTML += bookCard;
     }
   }
   // catch block for errors
@@ -116,9 +120,13 @@ function saveBook(index){
   // if there is no duplicate book push new book into the saved array
   if(!alreadyExists){
     saved.push(toSaveBook)
+    localStorage.setItem('savedBooks',JSON.stringify(saved)) // we must convert the array back into strings because localStorage only stores strings
+    showToast("Book saved!");
+  }else{
+    showToast("Book already saved!");
   }
   // save the updated array back to localStorage
-  localStorage.setItem('savedBooks',JSON.stringify(saved)) // we must convert the array back into strings because localStorage only stores strings
+  
 }
 
 // step 2 -> get the saved book data from the localStorage and display it in the DOM
@@ -134,11 +142,13 @@ function showSavedBooks(){
     // removeBook = book
     // console.log(book.volumeInfo.title);
     savedBooks.innerHTML += `
+    <div class="book-card">
     <img src = "${book.volumeInfo.imageLinks.smallThumbnail}" alt = "books image" />
     <h3>Book title : ${book.volumeInfo.title}</h3>
     <p><strong>Authors : ${book.volumeInfo.authors?.join(', ') || 'unknown author'}</strong></p>
     <button id="removeOnly" onclick="removeOnly('${book.id}')" style="margin-bottom: 10px;">Remove</button>
     <br>
+    </div>
     `
   });
 }
@@ -152,6 +162,7 @@ function clearAll(){
   // problem -> after removing savedBooks from the localStorage UI is not updated
   const savedBooks = document.getElementById('savedBooks')
   savedBooks.innerHTML = ''
+  showToast("All books cleared!");
 }
 
 // feature to only remove the selected items
@@ -162,6 +173,18 @@ function removeOnly(removeBook){
   })
   localStorage.setItem('savedBooks',JSON.stringify(updated))
   showSavedBooks();
+  showToast("Book removed!");
+}
+
+// toast notification after save and remove
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.display = 'block';
+
+  setTimeout(() => {
+    toast.style.display = 'none';
+  }, 2000);
 }
 
 // showing the saved books when page reloads
