@@ -115,7 +115,7 @@ function saveBook(index){
   let saved = JSON.parse(localStorage.getItem('savedBooks')) || [] // fetches saved book if there is or empty array & JSON.parse() converts string to array
   // now check for if there is any book matching to the one we are going to save -> to prevent duplicate saving
   let alreadyExists = saved.some((existingBook) => { // .some method checks if any one of the element meets the condition and returns true & false based on that
-    existingBook.id === toSaveBook.id
+    return existingBook.id === toSaveBook.id
   })
   // if there is no duplicate book push new book into the saved array
   if(!alreadyExists){
