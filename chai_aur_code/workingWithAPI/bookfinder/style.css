@@ -98,3 +98,19 @@ h2 + #clearAllBooks {
   border-radius: 8px;
   background-color: #fff;
 }
+
+body.dark-mode {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+.dark-mode .book-card {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+}
+
+.dark-mode button {
+  background-color: #333;
+  color: #f0f0f0;
+  border: 1px solid #555;
+}

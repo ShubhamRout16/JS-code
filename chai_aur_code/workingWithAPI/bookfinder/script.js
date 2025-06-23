@@ -190,4 +190,22 @@ function showToast(message) {
 // showing the saved books when page reloads
 window.onload = function() {
   showSavedBooks();
+
+  // adding persistance to the dark mode
+  if(localStorage.getItem('darkMode') === 'true'){
+    document.body.classList.add('dark-mode')
+  }
 }
+
+// adding dark mode toggle feature
+document.getElementById('toggleDarkMode').addEventListener('click' , () => {
+  console.log("clicked");
+  
+  // will use toggle method
+  // checks if -> there is class name dark-mode on body 
+  // if there isnt adds it and if there is then removes it
+  document.body.classList.toggle('dark-mode') 
+  // .contains check if there is className dark-mode and returns true and false based on that
+  const isDark = document.body.classList.contains('dark-mode')
+  localStorage.setItem('darkMode',isDark) // saving the result true and false to the localStorage
+})
