@@ -33,15 +33,57 @@ async function getBook(){
     console.log(data.items.length);
     
     // ui updation
-    const bookShower = document.getElementById('bookDetailsShower')
-    bookShower.innerHTML = `
-      <img src = "${data.items[0].volumeInfo.imageLinks.smallThumbnail}" alt = "books image" />
-      <h3>Book title : ${data.items[0].volumeInfo.title}</h3>
-      <p><strong>Author : ${data.items[0].volumeInfo.authors[0]}</strong></p>
-      <p><strong>Page Count : ${data.items[0].volumeInfo.pageCount}</strong></p>
-      <p><strong>Published Date : ${data.items[0].volumeInfo.publishedDate}</strong></p>
-      <p><strong>Publisher : ${data.items[0].volumeInfo.publisher}</strong></p>
-    `
+    // const bookShower = document.getElementById('bookDetailsShower')
+    // bookShower.innerHTML = `
+    //   <img src = "${data.items[0].volumeInfo.imageLinks.smallThumbnail}" alt = "books image" />
+    //   <h3>Book title : ${data.items[0].volumeInfo.title}</h3>
+    //   <p><strong>Author : ${data.items[0].volumeInfo.authors[0]}</strong></p>
+    //   <p><strong>Page Count : ${data.items[0].volumeInfo.pageCount}</strong></p>
+    //   <p><strong>Published Date : ${data.items[0].volumeInfo.publishedDate}</strong></p>
+    //   <p><strong>Publisher : ${data.items[0].volumeInfo.publisher}</strong></p>
+    // `
+
+    let bookShower = document.getElementById('bookDetailsShower')
+    // showing multiple books at a single time
+    for(let i=0; i<data.items.length; i++){
+      // all volume titles
+      // console.log(data.items[i].volumeInfo.title); 
+      // all volume publishedDate
+      // console.log(data.items[i].volumeInfo.publishedDate);
+      // all volume publisher 
+      // console.log(data.items[i].volumeInfo.publisher); 
+      // all volume page counts
+      // console.log(data.items[i].volumeInfo.pageCount); 
+      // all volume thumbnail
+      // lets show it on the dom
+      // bug -> only one image shows up on dom because .innerHTML replaces current element so we have to append using + operator
+      // console.log(data.items[i].volumeInfo.imageLinks.smallThumbnail);
+      bookShower.innerHTML += `
+      <img src = "${data.items[i].volumeInfo.imageLinks.smallThumbnail}" alt = "books image" />
+      <h3>Book title : ${data.items[i].volumeInfo.title}</h3>
+      <p><strong>Page Count : ${data.items[i].volumeInfo.pageCount}</strong></p>
+      <p><strong>Published Date : ${data.items[i].volumeInfo.publishedDate}</strong></p>
+      <p><strong>Publisher : ${data.items[i].volumeInfo.publisher}</strong></p>
+      `
+      for(let j=0; j<data.items[i].volumeInfo.authors.length; j++){
+        // console.log(data.items[i].volumeInfo.authors[j]);
+        // if(data.items[i].volumeInfo.authors.length > 1){
+        //   console.log(data.items[i].volumeInfo.authors[j])
+        //   bookShower.innerHTML += `
+        //   <p><strong>${console.log(data.items[i].volumeInfo.authors[j])}</strong></p>
+        //   `
+        // }else{
+        //   console.log(data.items[i].volumeInfo.authors[j])
+        // }
+        bookShower.innerHTML += `
+          <p><strong>Authors : ${(data.items[i].volumeInfo.authors[j])}</strong></p>
+          `
+      }
+      
+      
+      
+      
+    }
   }
   // catch block for errors
   catch(error){
