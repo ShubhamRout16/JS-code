@@ -335,4 +335,7 @@ document.getElementById('startQuiz').addEventListener('click', () => {
   renderQuestion();
 });
 
-
+// features completed till now
+// Questions Generations
+// Questions rendering & interaction
+// scoring & final screen
