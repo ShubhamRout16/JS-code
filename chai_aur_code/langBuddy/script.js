@@ -84,7 +84,18 @@ function showFilteredWords(recievedBtn){
   }
 } 
 
-
+// feature all changes made to words status to its initial value new
+function resetChanges(){
+  // removing the savedVocab key from the localStorage
+  localStorage.removeItem('savedVocab')
+  // resetting all the values of status from vocabulary array to new
+  vocabulary.forEach(word => word.status = 'new')
+  console.log(vocabulary);
+  // resetting index 
+  currentIndex = 0 ;
+  // re rendering the first word
+  showWord(currentIndex);
+}
 
 // show the first word initially when page loads
 window.onload = () => {
