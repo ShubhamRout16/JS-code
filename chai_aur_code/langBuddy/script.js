@@ -166,3 +166,67 @@ window.onload = () => {
   const remainingLen = remaining.length
   progressCount(learnedLen,difficultLen,remainingLen)
 }
+
+// ++++++++++++++++ {PHASE-2} ++++++++++++++++++++++++
+// generate a quiz
+// -> selecting one word from object
+// display 4 meanings -> 1 correct & 3 random incorrect meanings
+
+// function of reshuffling the remaining array
+function shuffledArray(array){
+  const arr = [...array] // to avoid mutation in original array we used spread operator which creates shallow copy
+  for(let i = arr.length - 1 ; i > 0 ; i--){
+    const j = Math.floor(Math.random() * (i+1))
+    [arr[i] , arr[j]] = [arr[j] , arr[i]]
+  }
+  return arr;
+}
+
+function generateQuizQuestions(){
+  // first lets try to generate for 1 question manually
+  const vocabulary = [
+    { word: "hello", meaning: "greeting" },
+    { word: "intend", meaning: "have in mind as a purpose" },
+    { word: "concern", meaning: "something that interests you because it is important" },
+    { word: "vain", meaning: "unproductive of success" },
+    { word: "entertain", meaning: "provide amusement for" },
+    { word: "knight", meaning: "a person of noble birth trained to arms and chivalry" },
+    { word: "inspire", meaning: "serve as the inciting cause of" },
+    { word: "skill", meaning: "an ability that has been acquired by training" },
+    { word: "novel", meaning: "an extended fictional work in prose" },
+    { word: "compel", meaning: "force somebody to do something" }
+  ];
+  
+
+
+  // selected 1 word from the array and its correct meaning
+  const correctWord = vocabulary[3].word
+  const correctMeaning = vocabulary[3].meaning
+
+  // generate random meaning which will act as distraction
+  const distractions = shuffledArray(
+    // this will ensure we get array of words without the word we selected for qs
+    vocabulary.filter(item => item.word !== correctWord)
+  )
+  // we want only 3 objects from shuffled array as distractors 
+  .slice(0,3)
+  // we want only meaning from the object
+  .map(item => item.meaning)
+
+  // merging distractors elements and correct meaning which will act as options
+  const options = [...distractions,correctMeaning] // [distractions[0] , distractions[1] , distractions[2] , correctMeaning]
+
+  // reshuffling the options
+  const reShuffledOptions = shuffledArray(options)
+
+  // final question object
+  const question = {
+    word : correctWord,
+    options : reShuffledOptions,
+    correct : correctMeaning
+  };
+
+  console.log(question);
+  
+}
+
