@@ -63,7 +63,7 @@ function saveVocabulary(){
 function showFilteredWords(recievedBtn){
   container.innerHTML = ''
   if(recievedBtn === 'viewLearned'){
-    const filteredArrayLearned = vocabulary.filter(vocabulary => vocabulary.status === 'learned')
+    const filteredArrayLearned = vocabulary.filter(item => item.status === 'learned')
     for(let i = 0; i < filteredArrayLearned.length ; i++){
       container.innerHTML += `
       <p><strong>${filteredArrayLearned[i].word}</strong></p>
@@ -73,7 +73,7 @@ function showFilteredWords(recievedBtn){
     console.log(filteredArrayLearned);
   }
   if(recievedBtn === 'viewDifficult'){
-    const filteredArrayDifficult = vocabulary.filter(vocabulary => vocabulary.status === 'Difficult')
+    const filteredArrayDifficult = vocabulary.filter(item => item.status === 'difficult')
     for(let i = 0; i < filteredArrayDifficult.length ; i++){
       container.innerHTML += `
       <p><strong>${filteredArrayDifficult[i].word}</strong></p>
