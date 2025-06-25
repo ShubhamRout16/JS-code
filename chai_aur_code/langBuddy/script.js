@@ -95,6 +95,21 @@ function resetChanges(){
   currentIndex = 0 ;
   // re rendering the first word
   showWord(currentIndex);
+  // calling toast with message 
+  showToast('Reset Successfull !')
+}
+
+// lets add a toast feature which shows successfull message after resetting the changes made
+// what this toast function will do -> will recieve a message while calling the function and make changes according to it
+function showToast(message){
+  const toast = document.getElementById('toastDiv')
+  toast.innerHTML = message
+  toast.style.display = 'block'
+
+  // removing the toast notification after 2 sec delay
+  setTimeout(() => {
+    toast.style.display = 'none'
+  },2000)
 }
 
 // show the first word initially when page loads
