@@ -176,12 +176,15 @@ window.onload = () => {
 function shuffledArray(array){
   const arr = [...array] // to avoid mutation in original array we used spread operator which creates shallow copy
   for(let i = arr.length - 1 ; i > 0 ; i--){
-    const j = Math.floor(Math.random() * (i+1))
+    const j = Math.floor(Math.random() * (i+1));
     [arr[i] , arr[j]] = [arr[j] , arr[i]]
   }
   return arr;
 }
 
+let questionsArray = []
+
+// this function generates all seven questions 
 function generateQuizQuestions(){
   // first lets try to generate for 1 question manually
   const vocabulary = [
@@ -196,37 +199,74 @@ function generateQuizQuestions(){
     { word: "novel", meaning: "an extended fictional work in prose" },
     { word: "compel", meaning: "force somebody to do something" }
   ];
+  // reshuffling the vocabulary array so that everytime words are taken not in the same order
+  const shuffledVocab = shuffledArray(vocabulary);
+
+  // taking first 7 objects from the array -> each of the words will act as main word for each 7 qs
+  const allWords = shuffledVocab.slice(0,7)
+  console.log(allWords);
   
 
+  // for each word extract correct meaning and 3 distraction meaning 
+  for(let i = 0 ; i < 7; i++){
+    const correctWord = allWords[i].word
+    // extracted each correct meaning
+    const correctMeaning = allWords[i].meaning
+    // creating 3 distractions meaning which will act as wrong option
+    const distractions = shuffledArray(
+       // this will ensure we get array of words without the word we selected for qs
+       vocabulary.filter(item => item.word != correctWord)
+    )
+    // we want only 3 objects from shuffled array as distractors 
+    .slice(0,3)
+    // we want only meaning from the object
+    .map(item => item.meaning)
 
-  // selected 1 word from the array and its correct meaning
-  const correctWord = vocabulary[3].word
-  const correctMeaning = vocabulary[3].meaning
+    // merging distractors elements and correct meaning which will act as options
+    const options = [...distractions,correctMeaning] // [distractions[0] , distractions[1] , distractions[2] , correctMeaning]
 
-  // generate random meaning which will act as distraction
-  const distractions = shuffledArray(
-    // this will ensure we get array of words without the word we selected for qs
-    vocabulary.filter(item => item.word !== correctWord)
-  )
-  // we want only 3 objects from shuffled array as distractors 
-  .slice(0,3)
-  // we want only meaning from the object
-  .map(item => item.meaning)
-
-  // merging distractors elements and correct meaning which will act as options
-  const options = [...distractions,correctMeaning] // [distractions[0] , distractions[1] , distractions[2] , correctMeaning]
-
-  // reshuffling the options
-  const reShuffledOptions = shuffledArray(options)
-
-  // final question object
-  const question = {
+    // reshuffling the options
+    const reShuffledOptions = shuffledArray(options) 
+    
+    // final question object
+    let question = {
     word : correctWord,
     options : reShuffledOptions,
     correct : correctMeaning
-  };
+    };
 
-  console.log(question);
+    questionsArray.push(question)
+  }
+  
+
+  // // selected 1 word from the array and its correct meaning
+  // const correctWord = vocabulary[3].word
+  // const correctMeaning = vocabulary[3].meaning
+
+  // // generate random meaning which will act as distraction
+  // const distractions = shuffledArray(
+  //   // this will ensure we get array of words without the word we selected for qs
+  //   vocabulary.filter(item => item.word !== correctWord)
+  // )
+  // // we want only 3 objects from shuffled array as distractors 
+  // .slice(0,3)
+  // // we want only meaning from the object
+  // .map(item => item.meaning)
+
+  // // merging distractors elements and correct meaning which will act as options
+  // const options = [...distractions,correctMeaning] // [distractions[0] , distractions[1] , distractions[2] , correctMeaning]
+
+  // // reshuffling the options
+  // const reShuffledOptions = shuffledArray(options)
+
+  // // final question object
+  // const question = {
+  //   word : correctWord,
+  //   options : reShuffledOptions,
+  //   correct : correctMeaning
+  // };
+
+  // console.log(question);
   
 }
 
