@@ -62,6 +62,14 @@ function changeStatus(text){
 function moveToNext(){
   currentIndex++
   showWord(currentIndex);
+
+  const learned = vocabulary.filter(item => item.status === 'learned')
+  const learnedLen = learned.length
+  const difficult = vocabulary.filter(item => item.status === 'difficult')
+  const difficultLen = difficult.length
+  const remaining = vocabulary.filter(item => item.status === 'new')
+  const remainingLen = remaining.length
+  progressCount(learnedLen,difficultLen,remainingLen)
 }
 
 // to add a progress counter which shows learned : number , difficult : number , remaining : number
