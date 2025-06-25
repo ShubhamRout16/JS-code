@@ -49,7 +49,27 @@ function changeStatus(text){
     currentIndex++
     showWord(currentIndex);
   }
-  
+  const learned = vocabulary.filter(item => item.status === 'learned')
+  const learnedLen = learned.length
+  const difficult = vocabulary.filter(item => item.status === 'difficult')
+  const difficultLen = difficult.length
+  const remaining = vocabulary.filter(item => item.status === 'new')
+  const remainingLen = remaining.length
+  progressCount(learnedLen,difficultLen,remainingLen)
+}
+
+// to add a next button which skips the words without marking it learned or difficult
+function moveToNext(){
+  currentIndex++
+  showWord(currentIndex);
+}
+
+// to add a progress counter which shows learned : number , difficult : number , remaining : number
+function progressCount(l,d,r){
+  const showProgress = document.getElementById('progressCounter')
+  showProgress.innerHTML = `
+  <p><strong>Learned : ${l} | Difficult : ${d} | Remaining : ${r}</strong></p>
+  `
 }
 
 // using localStorage so that the data persists
@@ -95,6 +115,14 @@ function resetChanges(){
   currentIndex = 0 ;
   // re rendering the first word
   showWord(currentIndex);
+  // resetting the progress count also
+  const learned = vocabulary.filter(item => item.status === 'learned')
+  const learnedLen = learned.length
+  const difficult = vocabulary.filter(item => item.status === 'difficult')
+  const difficultLen = difficult.length
+  const remaining = vocabulary.filter(item => item.status === 'new')
+  const remainingLen = remaining.length
+  progressCount(learnedLen,difficultLen,remainingLen);
   // calling toast with message 
   showToast('Reset Successfull !')
 }
@@ -122,4 +150,11 @@ window.onload = () => {
   // console.log(vocabulary); //checked its loading previously saved data
   
   showWord(currentIndex);
+  const learned = vocabulary.filter(item => item.status === 'learned')
+  const learnedLen = learned.length
+  const difficult = vocabulary.filter(item => item.status === 'difficult')
+  const difficultLen = difficult.length
+  const remaining = vocabulary.filter(item => item.status === 'new')
+  const remainingLen = remaining.length
+  progressCount(learnedLen,difficultLen,remainingLen)
 }

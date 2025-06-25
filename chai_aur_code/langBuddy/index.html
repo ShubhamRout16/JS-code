@@ -7,12 +7,14 @@
 </head>
 <body>
   <h1>Vocabulary Learning</h1>
+  <p id="progressCounter"></p>
   <div id="container">
     <!-- container which will show one word and its meaning -->
   </div>
   <div id="statusChangeBtns">
     <button id="learnedButton" onclick="changeStatus('learned')">Learned</button>
     <button id="difficultButton" onclick="changeStatus('difficult')">Difficult</button>
+    <button id="nextButton" onclick="moveToNext()">Next</button>
   </div>
   <div id="viewChangesBtns">
     <button id="viewLearned" onclick="showFilteredWords('viewLearned')">View Learned</button>
