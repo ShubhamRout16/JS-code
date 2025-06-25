@@ -204,7 +204,7 @@ function generateQuizQuestions(){
 
   // taking first 7 objects from the array -> each of the words will act as main word for each 7 qs
   const allWords = shuffledVocab.slice(0,7)
-  console.log(allWords);
+  // console.log(allWords);
   
 
   // for each word extract correct meaning and 3 distraction meaning 
@@ -238,7 +238,8 @@ function generateQuizQuestions(){
     questionsArray.push(question)
   }
   
-
+  console.log(questionsArray);
+  
   // // selected 1 word from the array and its correct meaning
   // const correctWord = vocabulary[3].word
   // const correctMeaning = vocabulary[3].meaning
@@ -269,4 +270,69 @@ function generateQuizQuestions(){
   // console.log(question);
   
 }
+
+// now lets create a function to render all these questions on our DOM
+let currentQuestionIndex = 0;
+let score = 0;
+function renderQuestion(){
+  const quizSection = document.getElementById('quizSection');
+  const question = questionsArray[currentQuestionIndex]
+  
+  // show question on the dom
+  quizSection.innerHTML = `
+  <p><strong>${question.word}</strong></p>
+  `
+  // loop through 4 options and create buttons and radio inputs
+  question.options.forEach(option => {
+    quizSection.innerHTML += `
+    <form>
+    <input type="radio" name="option1" onclick="answerSelection('${option}')"> ${option}
+    </form>
+    `
+  })
+}
+
+// function to handle answerSelection
+function answerSelection(answer){
+  const question = questionsArray[currentQuestionIndex]
+  const quizSection = document.getElementById('quizSection');
+
+  // if the answer selected is correct show correct else show wrong
+  if(answer === question.correct){
+    // to show the number of qs did right by the user
+    score++
+    quizSection.innerHTML += `<p>Correct ✅</p>`
+  }else{
+    quizSection.innerHTML += `<p>Wrong ❌. Correct answer: ${question.correct}</p>`;
+  }
+
+  // to move to next question
+  currentQuestionIndex++
+
+  // wait a bit to then move to next question
+  setTimeout(() => {
+    if(currentQuestionIndex >= questionsArray.length){
+      // if current index is greater than 7 then show the final screen
+      finalScreen();
+    }else{
+      // to show next question
+      renderQuestion()
+    }
+  },1000)
+}
+
+// function to show finalScreen 
+function finalScreen(){
+  const quizSection = document.getElementById('quizSection');
+  quizSection.innerHTML = `
+    <h2>Quiz Finished!</h2>
+    <p>Your score: ${score} / ${questionsArray.length}</p>
+  `;
+}
+
+document.getElementById('startQuiz').addEventListener('click', () => {
+  generateQuizQuestions();
+  renderQuestion();
+});
+
 
