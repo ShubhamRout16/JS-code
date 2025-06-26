@@ -296,6 +296,10 @@ function renderQuestion(){
 function answerSelection(answer){
   const question = questionsArray[currentQuestionIndex]
   const quizSection = document.getElementById('quizSection');
+  // for review answers feature -> we have to track the user answer selection
+  const userAnswer = answer ;
+  // lets store in question object to later use it
+  question.selected = userAnswer;
 
   // if the answer selected is correct show correct else show wrong
   if(answer === question.correct){
@@ -328,6 +332,7 @@ function finalScreen(){
     <h2>Quiz Finished!</h2>
     <p>Your score: ${score} / ${questionsArray.length}</p>
     <button id="retakeQuiz" onclick="retakeQuiz()">Retake Quiz</button>
+    <button id="reviewAnswers" onclick="reviewAnswers()">Review Answers</button>
   `;
 }
 
@@ -350,6 +355,37 @@ function retakeQuiz(){
   renderQuestion();
 }
 
+// quiz review feature -> which shows user the summary of the quiz users answer vs correct answer
+// track user answer selection 
+function reviewAnswers(){
+  const quizSection = document.getElementById('quizSection')
+  quizSection.innerHTML = `<h2>Review Answers</h2>`
+  questionsArray.forEach(questionObj => {
+    quizSection.innerHTML += `
+    <p><strong>${questionObj.word}</strong></p>
+    `
+    questionObj.options.forEach(options => {
+      // if answer is correct
+      let symbol = ''
+      let color = ''
+      if(options === questionObj.correct){
+        symbol = '✅';
+        color = 'green';
+      }
+      // if answer selected is wrong
+      else if(options === questionObj.selected && options !== questionObj.correct){
+        symbol = '❌'; 
+        color = 'red';
+      }
+      quizSection.innerHTML += `
+        <p style="color: ${color}; margin-left: 20px;">${symbol} ${options}</p>
+      `;
+
+      quizSection.innerHTML += '<hr>';
+    })
+  })
+}
+
 
 // features completed till now
 // Questions Generations
@@ -357,5 +393,6 @@ function retakeQuiz(){
 // scoring & final screen
 // retake Quiz button
 // pending -> review answers
+// bug -> to solve later -> quiz takes 14 qs instead of 7
 
 
