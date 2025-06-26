@@ -284,6 +284,11 @@ function renderQuestion(){
   <p><strong>${question.word}</strong></p>
   <button id="speechBtn" onclick="speakWord('${question.word}')">🔊</button>
   `
+  // mic button
+  quizSection.innerHTML += `
+    <button id="micBtn" onclick="listenSpeech('${question.correct}')">🎙️</button>
+    `
+
   // loop through 4 options and create buttons and radio inputs
   question.options.forEach(option => {
     quizSection.innerHTML += `
@@ -390,6 +395,10 @@ function reviewAnswers(){
   })
 }
 
+// ++++++++++{PHASE 3}++++++++++++
+// working with webspeechApi
+
+
 // text to speech feature 
 // what does it do? -> when clicked -> capture the word which invoked TTS
 // fetch webSpeech API 
@@ -399,6 +408,81 @@ function speakWord(speechWord){
   window.speechSynthesis.speak(utterance) 
 }
 
+
+// speech Recognition 
+// 1 -> create a speechRecognition according to browser compatibility
+function listenSpeech(correctAnswer){
+  const quizSection = document.getElementById('quizSection')
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition) ();
+
+  // language settings
+  recognition.lang = 'en-US'
+  // this property ensures if you want half spoken word by user or full sentence when the users pauses or stops , setting it false means we want complete sentence
+  recognition.interimResults = false
+  // this property means how many guesses of what was spoken we want in return setting it to 1 means we want the best guess
+  recognition.maxAlternative = 1
+
+  // start listening
+  recognition.start()
+
+  // when user starts speaking capture it using
+  recognition.onresult = (e) => {
+    const spokenText = e.results[0][0].transcript
+
+    // compare if what spoken by user is correct or not
+    if(spokenText.toLowerCase().trim() === correctAnswer.toLowerCase().trim()){
+      score++
+      quizSection.innerHTML += `<p>Correct ✅</p>
+    }else{
+      // idea -> check speech answer if correct speaks correct and if wrong speaks wrong says the correct answer
+      quizSection.innerHTML += `<p>Wrong ❌. Correct answer: ${question.correct}</p>`;
+    }
+
+    // to move to next question
+    currentQuestionIndex++  
+
+    // to move on the next question
+    setTimeout(() => {
+      if(currentQuestionIndex >= questionsArray.length){
+        // if current index is greater than 7 then show the final screen
+        finalScreen();
+      }else{
+        // to show next question
+        renderQuestion()
+      }
+    },1000)
+  }
+
+  // error handling 
+  recognition.onerror = (e) =>{
+    if(e.error === 'no-speech'){
+      quizSection.innerHTML += `<p>No speech detected, please try again.</p>`;
+      // Optionally, show a button to retry:
+      const retryBtn = document.createElement('button');
+      retryBtn.textContent = 'Try Again';
+      retryBtn.onclick = () => {
+        quizSection.innerHTML = ''; // Clear messages
+        listenSpeech(correctAnswer, quizSection);
+      };
+      quizSection.appendChild(retryBtn);
+    } else {
+      console.error('Speech recognition error:', e.error);
+    }
+  }
+  // end of speech
+  recognition.onend = () => {
+    const quizSection = document.getElementById('quizSection')
+    const listenAgain = document.createElement('button')
+    listenAgain.textContent = 'Listen Again'
+    listenAgain.onclick = () => listenSpeech(correctAnswer)
+    quizSection.appendChild(listenAgain)
+  }
+
+}
+
+
+
+
 // features completed till now
 // Questions Generations
 // Questions rendering & interaction
@@ -406,6 +490,7 @@ function speakWord(speechWord){
 // retake Quiz button
 // pending -> review answers {done}
 // bug -> to solve later -> quiz takes 14 qs instead of 7 {fixed}
-// TTS(TEXT TO SPEECH) feature
+// TTS(TEXT TO SPEECH) feature {done}
+// voice input (speech Recognition) {done}
 
 
