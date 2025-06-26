@@ -282,11 +282,11 @@ function renderQuestion(){
   // show question on the dom
   quizSection.innerHTML = `
   <p><strong>${question.word}</strong></p>
-  <button id="speechBtn" onclick="speakWord('${question.word}')">🔊</button>
+  <button id="speechBtn" onclick="speakWord('${question.word}')">🔊 Play Word</button>
   `
   // mic button
   quizSection.innerHTML += `
-    <button id="micBtn" onclick="listenSpeech('${question.correct}')">🎙️</button>
+    <button id="micBtn" onclick="listenSpeech('${question.correct}')">🎙️ Speak Answer</button>
     `
 
   // loop through 4 options and create buttons and radio inputs
@@ -332,15 +332,43 @@ function answerSelection(answer){
   },1000)
 }
 
+let spokenFinalScore = false; // final score not spoken yet
+// problem -> TTS hasnt been completed but next question function is fired
+function speakFeedbackAndMoveOn(feedbackText){
+  const utterance = new SpeechSynthesisUtterance(feedbackText)
+
+
+  // when speaking is finished move on to the next questions or show final screen
+  utterance.onend = () => {
+    currentQuestionIndex++ 
+
+    if(currentQuestionIndex >= questionsArray.length){
+      finalScreen();
+    }else{
+      renderQuestion()
+    }
+  }
+
+  // start speaking the feedback
+  window.speechSynthesis.speak(utterance)
+}
+
 // function to show finalScreen 
 function finalScreen(){
   const quizSection = document.getElementById('quizSection');
+
   quizSection.innerHTML = `
     <h2>Quiz Finished!</h2>
     <p>Your score: ${score} / ${questionsArray.length}</p>
     <button id="retakeQuiz" onclick="retakeQuiz()">Retake Quiz</button>
     <button id="reviewAnswers" onclick="reviewAnswers()">Review Answers</button>
   `;
+  
+  if(!spokenFinalScore){
+    spokenFinalScore = true;
+    // speak score
+  speakFeedbackAndMoveOn(`Your score: ${score} / ${questionsArray.length}`)
+  }
 }
 
 document.getElementById('startQuiz').addEventListener('click', () => {
@@ -458,25 +486,7 @@ function listenSpeech(correctAnswer){
     // },1000)
   }
 
-  // problem -> TTS hasnt been completed but next question function is fired
-  function speakFeedbackAndMoveOn(feedbackText){
-    const utterance = new SpeechSynthesisUtterance(feedbackText)
-
-
-    // when speaking is finished move on to the next questions or show final screen
-    utterance.onend = () => {
-      currentQuestionIndex++ 
-
-      if(currentQuestionIndex >= questionsArray.length){
-        finalScreen();
-      }else{
-        renderQuestion()
-      }
-    }
-
-    // start speaking the feedback
-    window.speechSynthesis.speak(utterance)
-  }
+  
 
 
   // error handling 
@@ -519,5 +529,6 @@ function listenSpeech(correctAnswer){
 // TTS(TEXT TO SPEECH) feature {done}
 // voice input (speech Recognition) {done}
 // idea -> to add a new feature instead of returning correct answer feedback on dom , idea is to return it through TTS
-// problem -> TTS hasnt been completed but next question function is fired
+// problem -> TTS hasnt been completed but next question function is fired {solved}
+// idea -> speak score and also show text when showing final screen {done}
 
