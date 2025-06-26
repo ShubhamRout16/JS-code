@@ -327,6 +327,7 @@ function finalScreen(){
   quizSection.innerHTML = `
     <h2>Quiz Finished!</h2>
     <p>Your score: ${score} / ${questionsArray.length}</p>
+    <button id="retakeQuiz" onclick="retakeQuiz()">Retake Quiz</button>
   `;
 }
 
@@ -335,7 +336,26 @@ document.getElementById('startQuiz').addEventListener('click', () => {
   renderQuestion();
 });
 
+// quiz Retake
+// quiz retake button in final screen
+function retakeQuiz(){
+  // reset questionsArray and currentQuestionIndex and score
+  questionsArray = []
+  currentQuestionIndex = 0
+  score = 0
+  // clearing the ui
+  const quizSection = document.getElementById('quizSection')
+  quizSection.innerHTML = ''
+  generateQuizQuestions();
+  renderQuestion();
+}
+
+
 // features completed till now
 // Questions Generations
 // Questions rendering & interaction
 // scoring & final screen
+// retake Quiz button
+// pending -> review answers
+
+
