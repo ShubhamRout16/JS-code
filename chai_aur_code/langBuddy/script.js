@@ -529,7 +529,9 @@ function VoiceQuiz(){
   spokenFinalScore = false
   // generate new 7 questions
   generateQuizQuestions();
-  startVoiceQuiz();
+  setTimeout(() => {
+    startVoiceQuiz();
+  }, 500);
 }
 
 // function to speak the question
@@ -542,6 +544,7 @@ function speakVoiceQuiz(questionToSpeak){
     setTimeout(() => {
       listenVoiceQuiz(questionToSpeak)
     },2000)
+    console.log("pahunch gya");
     
   }
 }
@@ -606,6 +609,53 @@ function startVoiceQuiz(){
   const currentQuestion = questionsArray[currentQuestionIndex]
   // speak the question using TTS
   speakVoiceQuiz(currentQuestion)
+}
+
+function speakConfirmation(message){
+  const utterance = new SpeechSynthesisUtterance(message)
+  window.speechSynthesis.speak(utterance)
+}
+
+document.getElementById('activateBtn').addEventListener('click', () => {
+  // one-time unlock
+  speakConfirmation('Welcome. Say start quiz to begin.');
+  listeningStart();
+  document.getElementById('activateBtn').style.display = 'none';
+});
+
+// listen command to start voice quiz
+function listeningStart() {
+  // You can display a prompt on-screen like You can display a prompt on-screen like “Say start quiz to begin.””
+  // window.alert('Say start quiz to begin')
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)()
+  recognition.lang = 'en-US'
+  recognition.interimResults = false
+  recognition.maxAlternative = 1
+  // starts listineing
+  recognition.start()
+  recognition.onresult = (e) => {
+    const userSpokenText = e.results[0][0].transcript
+    if(userSpokenText.toLowerCase().trim() === 'start quiz' || userSpokenText.toLowerCase().trim() === 'start voice quiz'){
+      // start voiceQuiz 
+      speakConfirmation('Okay, starting voice quiz now.')
+      VoiceQuiz();
+      console.log('started calling');
+      
+    }else{
+      // if user says something else 
+      speakConfirmation('Can you please Repeat what you said ?')
+    }
+  }
+  // in case there is no speech recognized or error restart listening after small delay
+  recognition.onerror =(e) => {
+    speakConfirmation(`Error is : ${e.error}`)
+    listeningStart();
+  }
+
+  // after voiceQuiz ends restart listening
+  recognition.onend = (e) => {
+    recognition.start();
+  }
 }
 
 // features completed till now
