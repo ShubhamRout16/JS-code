@@ -6,27 +6,34 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Vocabulary Learning</h1>
-  <p id="progressCounter"></p>
-  <div id="container">
-    <!-- container which will show one word and its meaning -->
-  </div>
-  <div id="statusChangeBtns">
-    <button id="learnedButton" onclick="changeStatus('learned')">Learned</button>
-    <button id="difficultButton" onclick="changeStatus('difficult')">Difficult</button>
-    <button id="nextButton" onclick="moveToNext()">Next</button>
-  </div>
-  <div id="viewChangesBtns">
-    <button id="viewLearned" onclick="showFilteredWords('viewLearned')">View Learned</button>
-    <button id="viewDifficult" onclick="showFilteredWords('viewDifficult')">View Difficult</button>
-  </div>
-  <button id="resetChanges" onclick="resetChanges()">Reset</button>
-  <!-- toast div -->
-  <div id="toastDiv" style="display: none;"> </div>
+  <div id="textQuiz">
+    <h1>Vocabulary Learning</h1>
+    <p id="progressCounter"></p>
+    <div id="container">
+      <!-- container which will show one word and its meaning -->
+    </div>
+    <div id="statusChangeBtns">
+      <button id="learnedButton" onclick="changeStatus('learned')">Learned</button>
+      <button id="difficultButton" onclick="changeStatus('difficult')">Difficult</button>
+      <button id="nextButton" onclick="moveToNext()">Next</button>
+    </div>
+    <div id="viewChangesBtns">
+      <button id="viewLearned" onclick="showFilteredWords('viewLearned')">View Learned</button>
+      <button id="viewDifficult" onclick="showFilteredWords('viewDifficult')">View Difficult</button>
+    </div>
+    <button id="resetChanges" onclick="resetChanges()">Reset</button>
+    <!-- toast div -->
+    <div id="toastDiv" style="display: none;"> </div>
 
-  <div id="quizSection">
-    <button id="startQuiz" onclick="generateQuizQuestions()">Start Quiz</button>
+    <div id="quizSection">
+      <button id="startQuiz" onclick="generateQuizQuestions()">Start Quiz</button>
+    </div>
   </div>
+
+  <!-- voice only quiz -->
+   <div id="voiceQuiz">
+    <button id="startVoiceQuiz" onclick="VoiceQuiz()">Start Voice Quiz</button>
+   </div>
 </body>
 <script src="script.js"></script>
 </html>

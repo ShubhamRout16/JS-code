@@ -516,6 +516,20 @@ function listenSpeech(correctAnswer){
 
 }
 
+// Voice Only quiz
+function VoiceQuiz(){
+  // clearing everything for the voice quiz
+  const textQuiz = document.getElementById('textQuiz')
+  textQuiz.innerHTML = ''
+  // reset all the variables
+  currentQuestionIndex = 0;
+  score = 0 ;
+  questionsArray = []
+  spokenFinalScore = false
+  // generate new 7 questions
+  generateQuizQuestions();
+  startVoiceQuiz();
+}
 
 
 
@@ -531,4 +545,9 @@ function listenSpeech(correctAnswer){
 // idea -> to add a new feature instead of returning correct answer feedback on dom , idea is to return it through TTS
 // problem -> TTS hasnt been completed but next question function is fired {solved}
 // idea -> speak score and also show text when showing final screen {done}
+
+// new features
+//  -> voice command listener detects commands like 'next' , 'repeat' , 'start quiz'
+//  -> Pronounciation Practice  -> app speaks a word and user repeats it app checks accuracy
+//  -> feedback system -> compares spoken word with expected word and shows match %
 
