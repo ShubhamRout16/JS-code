@@ -516,6 +516,7 @@ function listenSpeech(correctAnswer){
 
 }
 
+// +++++++++++++++++++{PHASE 4}++++++++++++++++++
 // Voice Only quiz
 function VoiceQuiz(){
   // clearing everything for the voice quiz
@@ -531,7 +532,81 @@ function VoiceQuiz(){
   startVoiceQuiz();
 }
 
+// function to speak the question
+function speakVoiceQuiz(questionToSpeak){
+  const utterance = new SpeechSynthesisUtterance(questionToSpeak.word);
+  window.speechSynthesis.speak(utterance)
 
+  utterance.onend = () => {
+    // there should be 1sec gap between speaking the word and listening the answer
+    setTimeout(() => {
+      listenVoiceQuiz(questionToSpeak)
+    },2000)
+    
+  }
+}
+
+function finalVoiceScreen(){
+  if(!spokenFinalScore){
+    spokenFinalScore = true
+    feedbackVoiceQuiz(`Your score: ${score} / ${questionsArray.length}`)
+  }
+}
+
+function feedbackVoiceQuiz(feedback){
+  const utterance = new SpeechSynthesisUtterance(feedback)
+
+  utterance.onend = () => {
+    currentQuestionIndex++
+    
+
+    if(currentQuestionIndex >= questionsArray.length){
+      // view final score and end
+      finalVoiceScreen();
+    }else{
+      // move to next qs
+      speakVoiceQuiz(questionsArray[currentQuestionIndex]);
+    }
+  }
+
+  window.speechSynthesis.speak(utterance)
+}
+
+
+function listenVoiceQuiz(question){
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition) ();
+  recognition.lang = 'en-US'
+  recognition.interimResults = false
+  recognition.maxAlternative = 1
+  // starts listening
+  recognition.start()
+  // check results 
+  recognition.onresult = (e) => {
+    const userSpokenText = e.results[0][0].transcript
+    // save user answer for later voice review feature
+    const userAnswerVoice =  userSpokenText
+    if(userSpokenText.toLowerCase().trim() === question.correct.toLowerCase().trim()){
+      // speak feeback
+      score++
+      feedbackVoiceQuiz('Correct! Well Done');
+    }
+    else{
+      // speak feedback
+      feedbackVoiceQuiz(`Wrong Answer.The Correct Answer is ${question.correct}`)
+    }
+  }
+  recognition.onerror = (e) => {
+    console.log("Recognition error:", e.error);
+    feedbackVoiceQuiz("Sorry, I could not hear you properly.");
+  };
+}
+
+function startVoiceQuiz(){
+  // get the current question
+  const currentQuestion = questionsArray[currentQuestionIndex]
+  // speak the question using TTS
+  speakVoiceQuiz(currentQuestion)
+}
 
 // features completed till now
 // Questions Generations
@@ -547,7 +622,7 @@ function VoiceQuiz(){
 // idea -> speak score and also show text when showing final screen {done}
 
 // new features
-//  -> voice command listener detects commands like 'next' , 'repeat' , 'start quiz'
+//  -> voice command listener detects commands like 'next' , 'repeat' , 'start quiz' 
 //  -> Pronounciation Practice  -> app speaks a word and user repeats it app checks accuracy
 //  -> feedback system -> compares spoken word with expected word and shows match %
 
