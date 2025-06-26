@@ -186,6 +186,7 @@ let questionsArray = []
 
 // this function generates all seven questions 
 function generateQuizQuestions(){
+  questionsArray = []
   // first lets try to generate for 1 question manually
   const vocabulary = [
     { word: "hello", meaning: "greeting" },
@@ -357,6 +358,8 @@ function retakeQuiz(){
 
 // quiz review feature -> which shows user the summary of the quiz users answer vs correct answer
 // track user answer selection 
+// store each answer selected by user in each question object according to its question
+// after clicking review answers button render all questions page and highlighting the answer correct and wrong
 function reviewAnswers(){
   const quizSection = document.getElementById('quizSection')
   quizSection.innerHTML = `<h2>Review Answers</h2>`
@@ -392,7 +395,8 @@ function reviewAnswers(){
 // Questions rendering & interaction
 // scoring & final screen
 // retake Quiz button
-// pending -> review answers
-// bug -> to solve later -> quiz takes 14 qs instead of 7
+// pending -> review answers {done}
+// bug -> to solve later -> quiz takes 14 qs instead of 7 {fixed}
+
 
 
