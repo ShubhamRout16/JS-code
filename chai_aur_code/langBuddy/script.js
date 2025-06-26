@@ -432,7 +432,7 @@ function listenSpeech(correctAnswer){
     // compare if what spoken by user is correct or not
     if(spokenText.toLowerCase().trim() === correctAnswer.toLowerCase().trim()){
       score++
-      quizSection.innerHTML += `<p>Correct ✅</p>
+      quizSection.innerHTML += `<p>Correct ✅</p>`
     }else{
       // idea -> check speech answer if correct speaks correct and if wrong speaks wrong says the correct answer
       quizSection.innerHTML += `<p>Wrong ❌. Correct answer: ${question.correct}</p>`;
