@@ -432,26 +432,52 @@ function listenSpeech(correctAnswer){
     // compare if what spoken by user is correct or not
     if(spokenText.toLowerCase().trim() === correctAnswer.toLowerCase().trim()){
       score++
-      quizSection.innerHTML += `<p>Correct ✅</p>`
+      // quizSection.innerHTML += `<p>Correct ✅</p>`
+      // asnwer is right send a string to TTS function
+      // speakWord('Correct! Well Done.')
+      speakFeedbackAndMoveOn('Correct! Well Done.')
     }else{
       // idea -> check speech answer if correct speaks correct and if wrong speaks wrong says the correct answer
-      quizSection.innerHTML += `<p>Wrong ❌. Correct answer: ${question.correct}</p>`;
+      // quizSection.innerHTML += `<p>Wrong ❌. Correct answer: ${question.correct}</p>`;
+      // speakWord(`Wrong Answer.The Correct Answer is ${correctAnswer}`)
+      speakFeedbackAndMoveOn(`Wrong Answer.The Correct Answer is ${correctAnswer}`)
     }
 
-    // to move to next question
-    currentQuestionIndex++  
+    // // to move to next question
+    // currentQuestionIndex++  
 
-    // to move on the next question
-    setTimeout(() => {
+    // // to move on the next question
+    // setTimeout(() => {
+    //   if(currentQuestionIndex >= questionsArray.length){
+    //     // if current index is greater than 7 then show the final screen
+    //     finalScreen();
+    //   }else{
+    //     // to show next question
+    //     renderQuestion()
+    //   }
+    // },1000)
+  }
+
+  // problem -> TTS hasnt been completed but next question function is fired
+  function speakFeedbackAndMoveOn(feedbackText){
+    const utterance = new SpeechSynthesisUtterance(feedbackText)
+
+
+    // when speaking is finished move on to the next questions or show final screen
+    utterance.onend = () => {
+      currentQuestionIndex++ 
+
       if(currentQuestionIndex >= questionsArray.length){
-        // if current index is greater than 7 then show the final screen
         finalScreen();
       }else{
-        // to show next question
         renderQuestion()
       }
-    },1000)
+    }
+
+    // start speaking the feedback
+    window.speechSynthesis.speak(utterance)
   }
+
 
   // error handling 
   recognition.onerror = (e) =>{
@@ -492,5 +518,6 @@ function listenSpeech(correctAnswer){
 // bug -> to solve later -> quiz takes 14 qs instead of 7 {fixed}
 // TTS(TEXT TO SPEECH) feature {done}
 // voice input (speech Recognition) {done}
-
+// idea -> to add a new feature instead of returning correct answer feedback on dom , idea is to return it through TTS
+// problem -> TTS hasnt been completed but next question function is fired
 
