@@ -189,7 +189,7 @@ function generateQuizQuestions(){
   questionsArray = []
   // first lets try to generate for 1 question manually
   const vocabulary = [
-    { word: "hello", meaning: "greeting" },
+    { word: "hello", meaning: "greeting"},
     { word: "intend", meaning: "have in mind as a purpose" },
     { word: "concern", meaning: "something that interests you because it is important" },
     { word: "vain", meaning: "unproductive of success" },
@@ -282,6 +282,7 @@ function renderQuestion(){
   // show question on the dom
   quizSection.innerHTML = `
   <p><strong>${question.word}</strong></p>
+  <button id="speechBtn" onclick="speakWord('${question.word}')">🔊</button>
   `
   // loop through 4 options and create buttons and radio inputs
   question.options.forEach(option => {
@@ -389,6 +390,14 @@ function reviewAnswers(){
   })
 }
 
+// text to speech feature 
+// what does it do? -> when clicked -> capture the word which invoked TTS
+// fetch webSpeech API 
+function speakWord(speechWord){
+  // SpeechSynthesisUtterance is not a object its constructor function
+  const utterance = new SpeechSynthesisUtterance(speechWord)
+  window.speechSynthesis.speak(utterance) 
+}
 
 // features completed till now
 // Questions Generations
@@ -397,6 +406,6 @@ function reviewAnswers(){
 // retake Quiz button
 // pending -> review answers {done}
 // bug -> to solve later -> quiz takes 14 qs instead of 7 {fixed}
-
+// TTS(TEXT TO SPEECH) feature
 
 
