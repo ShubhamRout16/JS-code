@@ -26,7 +26,7 @@ function showWord(index){
   <p><strong>${meaning}</strong></p>
   `
 }
-
+  
 // step 2 -> when user clicks either learned or difficult button change that words status
 // first capture the buttons
 const learnedButton = document.getElementById('learnedButton')
@@ -531,22 +531,23 @@ function VoiceQuiz(){
   generateQuizQuestions();
   setTimeout(() => {
     startVoiceQuiz();
-  }, 500);
+  }, 1000);
 }
 
 // function to speak the question
 function speakVoiceQuiz(questionToSpeak){
   const utterance = new SpeechSynthesisUtterance(questionToSpeak.word);
-  window.speechSynthesis.speak(utterance)
+  
 
   utterance.onend = () => {
     // there should be 1sec gap between speaking the word and listening the answer
     setTimeout(() => {
       listenVoiceQuiz(questionToSpeak)
-    },2000)
+    },1000)
     console.log("pahunch gya");
     
   }
+  window.speechSynthesis.speak(utterance)
 }
 
 function finalVoiceScreen(){
@@ -585,6 +586,7 @@ function listenVoiceQuiz(question){
   recognition.start()
   // check results 
   recognition.onresult = (e) => {
+    recognition.stop();
     const userSpokenText = e.results[0][0].transcript
     // save user answer for later voice review feature
     const userAnswerVoice =  userSpokenText
@@ -599,6 +601,7 @@ function listenVoiceQuiz(question){
     }
   }
   recognition.onerror = (e) => {
+    recognition.stop();
     console.log("Recognition error:", e.error);
     feedbackVoiceQuiz("Sorry, I could not hear you properly.");
   };
@@ -657,6 +660,9 @@ function listeningStart() {
     recognition.start();
   }
 }
+
+// azure STT
+
 
 // features completed till now
 // Questions Generations
