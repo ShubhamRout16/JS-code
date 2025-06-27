@@ -1,3 +1,16 @@
+// // Azure api
+// const subscriptionKey = "xqFRqoZBzrL8tbGgUUwtIWduWfvO3wEEEnxhUq0EIOSkgBqu3RaoJQQJ99BFACGhslBXJ3w3AAAYACOGy7ov";
+// const serviceRegion = "centralindia";
+
+// if(!window.SpeechSDK){
+//   console.error("Azure Speech SDK did not load properly.");
+// }
+
+//
+
+
+
+
 // we have created a array of objects with word and meaning
 let vocabulary = [
   {word: "hello" , meaning: "greeting" , status: "new"},
@@ -89,28 +102,31 @@ function saveVocabulary(){
 
 // next feature we will add a filter so that users can see learned words and difficult words 
 function showFilteredWords(recievedBtn){
-  container.innerHTML = ''
+  container.innerHTML = '';
+  let filteredWords = [];
+
   if(recievedBtn === 'viewLearned'){
-    const filteredArrayLearned = vocabulary.filter(item => item.status === 'learned')
-    for(let i = 0; i < filteredArrayLearned.length ; i++){
-      container.innerHTML += `
-      <p><strong>${filteredArrayLearned[i].word}</strong></p>
-      <p><strong>${filteredArrayLearned[i].meaning}</strong></p>
-      `
-    }
-    console.log(filteredArrayLearned);
+    filteredWords = vocabulary.filter(item => item.status === 'learned');
+  } 
+  else if(recievedBtn === 'viewDifficult'){
+    filteredWords = vocabulary.filter(item => item.status === 'difficult');
   }
-  if(recievedBtn === 'viewDifficult'){
-    const filteredArrayDifficult = vocabulary.filter(item => item.status === 'difficult')
-    for(let i = 0; i < filteredArrayDifficult.length ; i++){
-      container.innerHTML += `
-      <p><strong>${filteredArrayDifficult[i].word}</strong></p>
-      <p><strong>${filteredArrayDifficult[i].meaning}</strong></p>
-      `
-    }
-    console.log(filteredArrayDifficult);
+
+  if(filteredWords.length === 0){
+    container.innerHTML = `<p>No words found.</p>`;
+    return;
   }
-} 
+
+  filteredWords.forEach(wordObj => {
+    container.innerHTML += `
+      <div class="word-card">
+        <p><strong>${wordObj.word}</strong></p>
+        <p>${wordObj.meaning}</p>
+      </div>
+    `;
+  });
+}
+
 
 // feature all changes made to words status to its initial value new
 function resetChanges(){
@@ -332,6 +348,8 @@ function answerSelection(answer){
   },1000)
 }
 
+//START OF TTS AND SPEECH RECOGNITION
+
 let spokenFinalScore = false; // final score not spoken yet
 // problem -> TTS hasnt been completed but next question function is fired
 function speakFeedbackAndMoveOn(feedbackText){
@@ -529,9 +547,7 @@ function VoiceQuiz(){
   spokenFinalScore = false
   // generate new 7 questions
   generateQuizQuestions();
-  setTimeout(() => {
-    startVoiceQuiz();
-  }, 1000);
+  startVoiceQuiz();
 }
 
 // function to speak the question
@@ -541,11 +557,7 @@ function speakVoiceQuiz(questionToSpeak){
 
   utterance.onend = () => {
     // there should be 1sec gap between speaking the word and listening the answer
-    setTimeout(() => {
-      listenVoiceQuiz(questionToSpeak)
-    },1000)
-    console.log("pahunch gya");
-    
+    listenVoiceQuiz(questionToSpeak)
   }
   window.speechSynthesis.speak(utterance)
 }
@@ -619,12 +631,7 @@ function speakConfirmation(message){
   window.speechSynthesis.speak(utterance)
 }
 
-document.getElementById('activateBtn').addEventListener('click', () => {
-  // one-time unlock
-  speakConfirmation('Welcome. Say start quiz to begin.');
-  listeningStart();
-  document.getElementById('activateBtn').style.display = 'none';
-});
+
 
 // listen command to start voice quiz
 function listeningStart() {
@@ -661,9 +668,6 @@ function listeningStart() {
   }
 }
 
-// azure STT
-
-
 // features completed till now
 // Questions Generations
 // Questions rendering & interaction
@@ -677,8 +681,10 @@ function listeningStart() {
 // problem -> TTS hasnt been completed but next question function is fired {solved}
 // idea -> speak score and also show text when showing final screen {done}
 
-// new features
+// new features {wait}
 //  -> voice command listener detects commands like 'next' , 'repeat' , 'start quiz' 
 //  -> Pronounciation Practice  -> app speaks a word and user repeats it app checks accuracy
 //  -> feedback system -> compares spoken word with expected word and shows match %
 
+// basic feature 
+// i say learned -> clicks
