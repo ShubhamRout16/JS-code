@@ -4,7 +4,16 @@ const promise = createOrder(cart) // will return a promise object with orderID o
 // consuming a promise
 promise.then(function(orderId){
   console.log(orderId);
-  // proceedToPayment(orderId)
+  return orderId
+})
+.then(function (orderId){
+  return proceedToPayment(orderId)
+})
+.then(function(orderId){
+  console.log(orderId)
+})
+.catch(function(err){
+  console.log(err.message);
 })
 
 // creating a promise
@@ -23,6 +32,13 @@ function createOrder(cart){
 
   return pr;
 }
+function proceedToPayment(orderId){
+  return new Promise(function (resolve,reject){
+    resolve('payment successfull')
+  })
+}
+
+
 function validateCart(cart){
   return true
 }
