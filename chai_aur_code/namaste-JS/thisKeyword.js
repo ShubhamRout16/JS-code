@@ -21,3 +21,5 @@ const obj = {
 }
 obj.x()
 // three important functions while learning htis keyword are call() , apply() , bind()
+
+// this keyword inside DOM elements => reference to HTMLelement
